@@ -5,15 +5,15 @@ import Contact from "@/components/contact"
 import TerminalPreview from "@/components/terminal-preview"
 import BlogPreview from "@/components/blog-preview"
 
-export default function Home() {
+export default function LocalizedHome() {
   return (
     <div className="container mx-auto px-4">
-      <Hero />
+      {/* <Hero />
       <About />
       <Projects />
       <BlogPreview />
       <TerminalPreview />
-      <Contact />
+      <Contact /> */}
     </div>
   )
 }

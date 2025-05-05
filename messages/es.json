@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "title": "Federico Degiovanni - Desarrollador Frontend",
+    "description": "Sitio web personal y blog de Federico Degiovanni, Sr Software Engineer y docente"
+  },
+  "nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "blog": "Blog",
+    "terminal": "Terminal",
+    "contact": "Contacto",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "portuguese": "Portugués"
+  },
+  "hero": {
+    "greeting": "Hola, soy",
+    "description": "Sr Software Engineer y docente, apasionado por crear experiencias web excepcionales con React, Next.js y las últimas tecnologías frontend.",
+    "buttonProjects": "Ver proyectos",
+    "buttonTerminal": "Explorar Terminal"
+  },
+  "about": {
+    "title": "Sobre mí",
+    "subtitle": "Un vistazo a mi experiencia y habilidades",
+    "story": {
+      "title": "Mi historia",
+      "p1": "Soy un Sr Software Engineer y docente apasionado por la tecnología. Actualmente estoy enfocado en obtener mi título en Ingeniería en Sistemas en la Universidad Tecnológica Nacional.",
+      "p2": "Comencé mi carrera como desarrollador full stack, trabajando en backend, APIs, frontend web y aplicaciones móviles. Incluso me aventuré en el mundo de la realidad aumentada.",
+      "p3": "Actualmente me especializo en desarrollo frontend con React y JavaScript. También enseño en la carrera de Licenciatura en Producción de Videojuegos, donde junto a mis estudiantes creamos prototipos de juegos 2D en HTML5."
+    },
+    "skills": {
+      "title": "Habilidades"
+    }
+  },
+  "projects": {
+    "title": "Proyectos",
+    "subtitle": "Una selección de mis trabajos recientes",
+    "demo": "Demo",
+    "code": "Código",
+    "viewAll": "Ver todos los proyectos"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Artículos sobre desarrollo frontend y buenas prácticas",
+    "readArticle": "Leer artículo",
+    "viewAll": "Ver todos los artículos"
+  },
+  "terminal": {
+    "title": "Terminal",
+    "subtitle": "Explora mi sitio en modo CLI",
+    "open": "Abrir Terminal"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "¿Tienes un proyecto en mente? ¡Hablemos!",
+    "form": {
+      "name": "Nombre",
+      "email": "Email",
+      "subject": "Asunto",
+      "message": "Mensaje",
+      "send": "Enviar mensaje"
+    }
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

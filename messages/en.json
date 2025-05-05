@@ -1,0 +1,69 @@
+{
+  "metadata": {
+    "title": "Federico Degiovanni - Frontend Developer",
+    "description": "Personal website and blog of Federico Degiovanni, Sr Software Engineer and teacher"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "terminal": "Terminal",
+    "contact": "Contact",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "portuguese": "Portuguese"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "description": "Sr Software Engineer and teacher, passionate about creating exceptional web experiences with React, Next.js and the latest frontend technologies.",
+    "buttonProjects": "View projects",
+    "buttonTerminal": "Explore Terminal"
+  },
+  "about": {
+    "title": "About me",
+    "subtitle": "A glimpse into my experience and skills",
+    "story": {
+      "title": "My story",
+      "p1": "I'm a Sr Software Engineer and teacher passionate about technology. I'm currently focused on obtaining my Systems Engineering degree at the National Technological University.",
+      "p2": "I started my career as a full stack developer, working on backend, APIs, web frontend and mobile applications. I even ventured into the world of augmented reality.",
+      "p3": "I currently specialize in frontend development with React and JavaScript. I also teach in the Video Game Production degree, where together with my students we create 2D game prototypes in HTML5."
+    },
+    "skills": {
+      "title": "Skills"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "A selection of my recent work",
+    "demo": "Demo",
+    "code": "Code",
+    "viewAll": "View all projects"
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articles about frontend development and best practices",
+    "readArticle": "Read article",
+    "viewAll": "View all articles"
+  },
+  "terminal": {
+    "title": "Terminal",
+    "subtitle": "Explore my site in CLI mode",
+    "open": "Open Terminal"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Got a project in mind? Let's talk!",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send message"
+    }
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}

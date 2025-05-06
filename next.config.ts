@@ -1,17 +1,13 @@
-const withNextIntl = require("next-intl/plugin")()
+import {NextConfig} from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+
+const config: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
-    domains: ["sjc.microlink.io"],
-  },
 }
 
-module.exports = withNextIntl(nextConfig)
+export default config;

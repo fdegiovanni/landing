@@ -8,78 +8,47 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
   const pathname = usePathname()
 
-  // Extraer el locale de la URL
-  const pathParts = pathname?.split("/") || []
-  const locales = ["es", "en", "pt"]
-  const locale = locales.includes(pathParts[1]) ? pathParts[1] : "es"
-
-  // Textos según el idioma
-  const texts = {
-    es: {
-      about: "Sobre mí",
-      projects: "Proyectos",
-      blog: "Blog",
-      contact: "Contacto",
-      rights: "Todos los derechos reservados.",
-    },
-    en: {
-      about: "About",
-      projects: "Projects",
-      blog: "Blog",
-      contact: "Contact",
-      rights: "All rights reserved.",
-    },
-    pt: {
-      about: "Sobre",
-      projects: "Projetos",
-      blog: "Blog",
-      contact: "Contato",
-      rights: "Todos os direitos reservados.",
-    },
-  }
-
-  const t = texts[locale as keyof typeof texts] || texts.es
 
   return (
     <footer className="border-t py-8">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <Link href={locale === "es" ? "/" : `/${locale}`} className="font-bold text-xl">
+            <Link href="/" className="font-bold text-xl">
               <span className="text-primary">&lt;</span>
               <span>Federico Degiovanni</span>
               <span className="text-primary">/&gt;</span>
             </Link>
             <p className="text-sm text-muted-foreground mt-2">
-              © {currentYear} Federico Degiovanni. {t.rights}
+              © {currentYear} fdegiovanni
             </p>
           </div>
 
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
             <nav className="flex space-x-6">
               <Link
-                href={locale === "es" ? "/about" : `/${locale}/about`}
+                href= "/about"
                 className="text-sm text-muted-foreground hover:text-primary"
               >
-                {t.about}
+                Sobre mí
               </Link>
               <Link
-                href={locale === "es" ? "/projects" : `/${locale}/projects`}
+                href="/projects"
                 className="text-sm text-muted-foreground hover:text-primary"
               >
-                {t.projects}
+                Proyectos
               </Link>
               <Link
-                href={locale === "es" ? "/blog" : `/${locale}/blog`}
+                href="/blog"
                 className="text-sm text-muted-foreground hover:text-primary"
               >
-                {t.blog}
+                Blog
               </Link>
               <Link
-                href={locale === "es" ? "/contact" : `/${locale}/contact`}
+                href="/contact"
                 className="text-sm text-muted-foreground hover:text-primary"
               >
-                {t.contact}
+                Contacto
               </Link>
             </nav>
 

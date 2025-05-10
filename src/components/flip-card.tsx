@@ -22,7 +22,7 @@ export function FlipCard({ front, back, className }: FlipCardProps) {
     <div
       className={cn(
         "relative w-full perspective-1000 cursor-pointer transition-all duration-500",
-        isFlipped ? "h-[375px]" : "h-[225px]",
+        isFlipped ? "min-h-[300px] max-h-[400px]" : "min-h-[200px] max-h-[300px]",
         className,
       )}
       onClick={toggleFlip}

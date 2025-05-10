@@ -91,7 +91,11 @@ export function EnhancedTimeline({ items, className }: EnhancedTimelineProps) {
       child: 0.2, // 20% from left
       teen: 0.35, // 35% from left
       graduate: 0.65, // 65% from left
-      adult: 0.85, // 85% from left
+      adult: 0.85, // 85% from 
+      "adult-1": 0.85,
+      "adult-2": 0.85,
+      "adult-3": 0.85,
+      "adult-4": 0.85,
     }
 
     return positions[stage] || 0.5

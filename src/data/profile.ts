@@ -17,8 +17,14 @@ export const profile = {
         blue: "",
         instagram: "",
         email: "federicoadegiovanni@gmail.com",
+        mobile: "+5493564599872",
     },
     description: "",
+    history: [
+      "Soy un Sr Software Engineer y docente apasionado por la tecnología. Actualmente estoy enfocado en obtener mi título en Ingeniería en Sistemas en la Universidad Tecnológica Nacional.",
+      "Comencé mi carrera como desarrollador full stack, trabajando en backend, APIs, frontend web y aplicaciones móviles. Incluso me aventuré en el mundo de la realidad aumentada.",
+      "Actualmente me especializo en desarrollo frontend con React y JavaScript. También enseñé en la carrera de Licenciatura en Producción de Videojuegos, donde junto a mis estudiantes creamos prototipos de juegos 2D en HTML5."
+    ],
     skills: [
         { name: "Frontend Development", slug: "frontend" },
         { name: "Backend Development", slug: "backend" },
@@ -73,26 +79,32 @@ export const profile = {
     ],
     hobbies: [
       {
+        emoji: "🧉",
         title: "Amante del mate",
         description: "Tengo más de 5 mates diferentes: de calabaza, vidrio, cerámica, madera, metálico e incluso uno eléctrico. El mate es mi compañero fiel durante las sesiones de programación."
       },
       {
+        emoji: "",
         title: "Coleccionista de stickers",
         description: "Soy fan de los stickers de tecnología y programación, pero me cuesta mucho pegarlos, así que los tengo guardados en una caja en mi ropero esperando el momento perfecto."
       },
       {
+        emoji: "📚",
         title: "Lector ávido",
         description: "Soy un gran fanático de la fantasía épica, especialmente de El Señor de los Anillos, Harry Potter y La Rueda del Tiempo. Siempre tengo un libro en mi mesita de noche."
       },
       {
+        emoji: "🔭",
         title: "Aficionado a la astronomía",
         description: "Fui colaborador en el Observatorio Astronómico de la UTN de San Francisco. Me fascina observar el cielo nocturno y aprender sobre los misterios del universo."
       },
       {
+        emoji: "🎨",
         title: "Amante de los museos",
         description: "Siempre que visito una nueva ciudad, uno de mis primeros destinos es un museo local. Me encanta aprender sobre la historia, el arte y la cultura de diferentes lugares a través de sus exhibiciones."
       },
       {
+        emoji: "🚴‍♂️",
         title: "Ciclista empedernido",
         description: "Me encanta salir a pasear en bicicleta, especialmente por los campos. Es una forma perfecta de combinar ejercicio y disfrutar de la naturaleza. Cada vez que puedo, me escapo a un biketour."
       }
@@ -104,6 +116,7 @@ export const profile = {
           title: "El Big Bang (aka Nacimiento)",
           description: "Comienza la aventura. Un nuevo ser programador entra al mundo.",
           icon: "Baby",
+          emoji: "👶",
         },
         {
           id: "child",
@@ -111,6 +124,7 @@ export const profile = {
           title: "Escuela Primaria: José Bernardo Iturraspe",
           description: "Primeros pasos en el aprendizaje. Descubrimiento de la curiosidad y el pensamiento lógico.",
           icon: "School",
+          emoji: "🏫",
         },
         {
           id: "teen",
@@ -118,6 +132,7 @@ export const profile = {
           title: "Escuela Secundaria",
           description: "Exploración temprana de la tecnología y primeros encuentros con la electronica.",
           icon: "School",
+          emoji: "🏫",
         },
         {
           id: "graduate",
@@ -125,6 +140,7 @@ export const profile = {
           title: "Universidad Tecnológica Nacional: Facultad Regional Santa Fe",
           description: "Estudiando Ingeniería en Sistemas de Información. Fundamentos sólidos en ciencias de la computación.",
           icon: "GraduationCap",
+          emoji: "🎓",
         },
         {
           id: "adult-1",
@@ -132,6 +148,7 @@ export const profile = {
           title: "Aprendizaje Continuo",
           description: "Plataformas como Udemy, O'Reilly y Miriadax. Siempre actualizándome con las nuevas tecnologías.",
           icon: "Lightbulb",
+          emoji: "💡",
         },
         {
           id: "adult-2",
@@ -139,6 +156,7 @@ export const profile = {
           title: "Conferencias y Eventos",
           description: "Participación en conferencias tech y meetups para networking y aprendizaje colaborativo.",
           icon: "Calendar",
+          emoji: "📅",
         },
         {
           id: "adult-3",
@@ -146,6 +164,7 @@ export const profile = {
           title: "Contenido de YouTube",
           description: "Aprendo de creadores de contenido educativo sobre las últimas tendencias en desarrollo.",
           icon: "Youtube",
+          emoji: "📺",
         },
         {
           id: "adult-4",
@@ -153,6 +172,7 @@ export const profile = {
           title: "Conocimiento con tecnologías emergentes",
           description: "Aprendizaje y experimentación con tecnologías emergentes. ChatGPT tu mejor amigo y mentor.",
           icon: "Book",
+          emoji: "📖",
         },
       ],
     experiences: [

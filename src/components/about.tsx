@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import Link from "next/link"
+import { profile } from "@/data/profile"
 
 export default function About() {
 
@@ -18,19 +19,12 @@ export default function About() {
           <Card>
             <CardContent className="p-6 space-y-4">
               <h3 className="text-xl font-semibold">Mi historia</h3>
-              <p>
-                Soy un Sr Software Engineer y docente apasionado por la tecnología. Actualmente estoy enfocado en
-                obtener mi título en Ingeniería en Sistemas en la Universidad Tecnológica Nacional.
-              </p>
-              <p>
-                Comencé mi carrera como desarrollador full stack, trabajando en backend, APIs, frontend web y
-                aplicaciones móviles. Incluso me aventuré en el mundo de la realidad aumentada.
-              </p>
-              <p>
-                Actualmente me especializo en desarrollo frontend con React y JavaScript. También enseño en la carrera
-                de Licenciatura en Producción de Videojuegos, donde junto a mis estudiantes creamos prototipos de juegos
-                2D en HTML5.
-              </p>
+              {profile.history.map((item, index) => (
+                <p key={index}>
+                  {item}
+                </p>
+              ))}
+              
               <div className="pt-4 flex justify-end">
                 <Button asChild>
                   <Link href="/about">

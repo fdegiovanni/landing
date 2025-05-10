@@ -1,52 +1,47 @@
-import type React from "react";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
-import { getLocale } from "next-intl/server";
-import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import type React from "react"
+import { Inter, JetBrains_Mono } from "next/font/google"
+import { ThemeProvider } from "@/components/theme-provider"
+import "./globals.css"
+import Header from "@/components/header"
+import Footer from "@/components/footer"
+
+type Props = {
+  children: React.ReactNode;
+};
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
-});
+})
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
-});
+})
 
-export const metadata = {
-  title: "Federico Degiovanni - Frontend Developer",
-  description:
-    "Sitio web personal y blog de Federico Degiovanni, Sr Software Engineer y docente",
-};
+// generar metadata
+export function generateMetadata() {
+  return {
+    title: 'fdegiovanni',
+    description: 'Bienvenido a mi sitio web',
+  };
+}
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
-  const locale = await getLocale();
+}: Props) {
+
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang="es" suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
-        <NextIntlClientProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
             <div className="flex min-h-screen flex-col">
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />
             </div>
           </ThemeProvider>
-        </NextIntlClientProvider>
       </body>
     </html>
-  );
+  )
 }

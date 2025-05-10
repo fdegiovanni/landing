@@ -4,8 +4,16 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-export default function BlogPreview() {
-  const posts = [
+interface Post {
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  slug: string;
+}
+
+export default function BlogPreview({ posts }: { posts: Post[] }) {
+  /* const posts = [
     {
       title: "Entendiendo los Hooks de React",
       excerpt: "Una guía completa sobre cómo funcionan los hooks y cómo utilizarlos efectivamente en tus proyectos.",
@@ -27,7 +35,11 @@ export default function BlogPreview() {
       category: "Next.js",
       slug: "/blog/optimizacion-rendimiento-nextjs",
     },
-  ]
+  ] */
+
+  if (!posts || posts.length === 0) {
+    return (null)
+  }
 
   return (
     <section id="blog" className="py-16">

@@ -2,23 +2,37 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, JSX } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { TerminalIcon, User, Briefcase, BookOpen, Mail, HelpCircle, X } from "lucide-react"
+import { useAsciiText, starWars } from 'react-ascii-text';
+import { profile } from "@/data/profile"
 
 type CommandType = {
   command: string
   output: string | JSX.Element
 }
 
+
 export default function TerminalPage() {
+  function LogoCLI() {
+    const asciiTextRef = useAsciiText({
+      font: starWars,
+      text: "fdegiovanni",
+    });
+  
+    return <pre className="text-xs" ref={asciiTextRef as React.RefObject<HTMLPreElement>}></pre>;
+  }
+
+  
   const [input, setInput] = useState<string>("")
   const [history, setHistory] = useState<CommandType[]>([
     {
       command: "welcome",
       output: (
         <div className="space-y-2">
+          <LogoCLI />
           <p>¡Bienvenido a mi terminal interactiva!</p>
           <p>
             Escribe <span className="text-primary font-bold">help</span> para ver los comandos disponibles.
@@ -58,6 +72,14 @@ export default function TerminalPage() {
     let output: string | JSX.Element = 'Comando no reconocido. Escribe "help" para ver los comandos disponibles.'
 
     switch (command) {
+      case "logo":
+        output = (
+          <div className="space-y-2">
+            <LogoCLI />
+          </div>
+        )
+        break
+
       case "help":
         output = (
           <div className="space-y-2">
@@ -75,6 +97,9 @@ export default function TerminalPage() {
               <li>
                 <span className="text-primary font-bold">contact</span> - Información de contacto
               </li>
+             {/*  <li>
+                <span className="text-primary font-bold">ascci art:[text]</span> - Crea arte ASCII con el texto ingresado ej: ascci art:fdegiovanni
+              </li> */}
               <li>
                 <span className="text-primary font-bold">clear</span> - Limpiar la terminal
               </li>
@@ -89,12 +114,131 @@ export default function TerminalPage() {
         output = (
           <div className="space-y-2">
             <p className="font-bold">Sobre mí</p>
-            <p>Soy un desarrollador frontend apasionado por crear experiencias web excepcionales.</p>
-            <p>Me especializo en React, Next.js, TypeScript y diseño de interfaces.</p>
-            <p>
-              Cuando no estoy programando, disfruto compartiendo conocimientos en mi blog y contribuyendo a proyectos
-              open source.
+            {profile.history.map((item, index) => (
+              <p key={index} className="text-muted-foreground">
+                {item}
+              </p>
+            ))}
+            <p className="mt-2">
+              Escribe <span className="text-primary font-bold">more info</span> para ver más detalles.
             </p>
+          </div>
+        )
+        break
+      case "more info":
+        output = (
+          <div className="space-y-2">
+            <p className="font-bold">Más información</p>
+
+            <p className="text-muted-foreground">
+                Soy estudiante de Ingeniería en Sistemas de Información con más de siete años de experiencia en el desarrollo de software y docencia universitaria. Mi trayectoria profesional ha estado marcada por la constante búsqueda de la excelencia y la innovación en proyectos tecnológicos, tanto en el ámbito académico como en el empresarial. Actualmente, me desempeño como Senior Software Engineer en Mercado Libre, donde trabajo con equipos multidisciplinarios y contribuyo al desarrollo de soluciones tecnológicas avanzadas.
+            </p>
+            <p className="text-muted-foreground">
+                Mi formación académica formal universitaria y la realización de capacitaciones informales han fortalecido mis competencias técnicas y de liderazgo. Además, como docente auxiliar en la Universidad Nacional de Rafaela, he tenido la oportunidad de compartir mi conocimiento y experiencia con futuras generaciones de profesionales, lo que me ha permitido desarrollar habilidades de comunicación efectiva y pedagogía.
+            </p>
+            <p className="text-muted-foreground">
+                Soy un profesional proactivo, orientado a resultados y con una fuerte capacidad para trabajar en equipo. Mi enfoque está en la creación de soluciones tecnológicas que no solo sean eficientes y escalables, sino también sostenibles y responsables con el entorno. Busco constantemente nuevos desafíos que me permitan crecer profesionalmente y aportar de manera significativa a los proyectos en los que participo.
+            </p>
+            <p className="text-muted-foreground">
+                Mi objetivo es continuar desarrollándome en el campo de la ingeniería de software, con una visión global y un compromiso local, contribuyendo a proyectos innovadores que impulsen el desarrollo tecnológico y social.
+            </p>
+            <p className="mt-2">
+              Escribe <span className="text-primary font-bold">hobbies</span> para ver más detalles.
+            </p>
+            <p className="mt-2">
+              Escribe <span className="text-primary font-bold">interests</span> para ver más detalles.
+            </p>
+            <p className="mt-2">
+              Escribe <span className="text-primary font-bold">education</span> para ver más detalles.
+            </p>
+            <p className="mt-2">
+              Escribe <span className="text-primary font-bold">jobs</span> para ver más detalles.
+            </p>
+          </div>
+        )
+        break
+      case "hobbies":
+        output = (
+          <div className="space-y-2">
+            <p className="font-bold">Mis hobbies</p>
+            <ul className="space-y-1">
+              {profile.hobbies.map((hobby, index) => (
+                <li key={index}>
+                  {hobby.emoji} <span className="text-primary">{hobby.title}</span> - {hobby.description}
+                </li>
+              ))}
+            </ul>
+            </div>
+        )
+        break
+      case "interests":
+        output = (
+          <div className="space-y-2">
+            <p className="font-bold">Mis intereses</p>
+            <ul className="space-y-1">
+              {profile.interests.map((interest, index) => (
+                <li key={index}>
+                  {interest.name}
+                </li>
+              ))}
+            </ul>
+            </div>
+        )
+        break
+      case "education":
+        output = (
+          <div className="space-y-2">
+            <p className="font-bold">Mi educación</p>
+            <ul className="space-y-1">
+              {profile.education.map((edu, index) => (
+                <li key={index} className="pb-2">
+                  {edu.emoji} - <span className="text-muted-foreground">{edu.year}</span> <br />
+                  <span className="text-primary">{edu.title}</span> <br />
+                  <span className="text-muted-foreground">{edu.description}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+        break
+      case "jobs":
+        output = (
+          <div className="space-y-2">
+            <p className="font-bold">Mi experiencia laboral</p>
+            <ul className="space-y-1">
+              {profile.experiences.map((job, index) => (
+                <li key={index} className="pb-2">
+                  <hr className="border-t border-gray-700" />
+                  <p className="text-primary">
+                    🧗‍♂️ - <span className="text-muted-foreground">{job.period}</span> <br />
+                   <span className="text-primary">{job.role}</span> en  <span className="font-bold">{job.company}</span><br />
+                   <span>{job.description}</span>
+                  </p>
+                  <br />
+                  <p >
+                    Responsabilidades:
+                  </p>
+                  <ul className="list-disc list-inside">
+                    {job.responsibilities.map((resp, index) => (
+                      <li key={index} className="text-muted-foreground">
+                        {resp}
+                        </li>
+                    ))}
+                  </ul>
+                  <br />
+                  <p>
+                    Principales logros:
+                  </p>
+                  <ul className="list-disc list-inside">
+                    {job.achievements.map((ach, index) => (
+                      <li key={index} className="text-muted-foreground">
+                        {ach}
+                        </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
           </div>
         )
         break
@@ -104,14 +248,7 @@ export default function TerminalPage() {
             <p className="font-bold">Mis proyectos</p>
             <ul className="space-y-1">
               <li>
-                📊 <span className="text-primary">E-commerce Dashboard</span> - Panel de administración para tiendas
-                online
-              </li>
-              <li>
-                📝 <span className="text-primary">Blog Platform</span> - Plataforma de blog con soporte para Markdown
-              </li>
-              <li>
-                🌤️ <span className="text-primary">Weather App</span> - Aplicación del clima con pronóstico de 7 días
+                📊 <span className="text-primary">Ejemplo</span> - Ejemplo
               </li>
             </ul>
             <p className="mt-2">
@@ -132,13 +269,7 @@ export default function TerminalPage() {
             <p className="font-bold">Artículos recientes</p>
             <ul className="space-y-1">
               <li>
-                ⚛️ <span className="text-primary">Entendiendo los Hooks de React</span> - 10 Abril, 2023
-              </li>
-              <li>
-                🎨 <span className="text-primary">CSS Grid vs Flexbox</span> - 25 Marzo, 2023
-              </li>
-              <li>
-                ⚡ <span className="text-primary">Optimización de rendimiento en Next.js</span> - 15 Febrero, 2023
+                ⚛️ <span className="text-primary">Titulo</span> - 10 Abril, 2023
               </li>
             </ul>
             <p className="mt-2">
@@ -157,9 +288,9 @@ export default function TerminalPage() {
         output = (
           <div className="space-y-2">
             <p className="font-bold">Información de contacto</p>
-            <p>📧 Email: hello@example.com</p>
-            <p>📱 Teléfono: +34 123 456 789</p>
-            <p>📍 Ubicación: Madrid, España</p>
+            <p>📧 Email: {profile.social.email}</p>
+            <p>📱 Teléfono: {profile.social.mobile}</p>
+            <p>📍 Ubicación: {profile.location}</p>
             <p className="mt-2">
               Escribe <span className="text-primary font-bold">open contact</span> para ir al formulario de contacto.
             </p>

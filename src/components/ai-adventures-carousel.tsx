@@ -35,7 +35,13 @@ const images = [
 ]
 
 export function AIAdventuresCarousel() {
-  const [api, setApi] = useState<any>()
+  interface CarouselApi {
+    selectedScrollSnap: () => number;
+    on: (event: string, callback: () => void) => void;
+    off: (event: string, callback: () => void) => void;
+  }
+
+  const [api, setApi] = useState<CarouselApi | undefined>()
   const [current, setCurrent] = useState(0)
 
   useEffect(() => {

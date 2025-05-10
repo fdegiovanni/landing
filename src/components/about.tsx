@@ -1,23 +1,10 @@
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
+import Link from "next/link"
 
 export default function About() {
-  const skills = [
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "TypeScript",
-    "React",
-    "Next.js",
-    "Tailwind CSS",
-    "Node.js",
-    "Git",
-    "PHP",
-    "Responsive Design",
-    "Accesibilidad",
-    "Performance",
-    "Testing",
-  ]
 
   return (
     <section id="about" className="py-16">
@@ -27,7 +14,7 @@ export default function About() {
           <p className="text-muted-foreground">Un vistazo a mi experiencia y habilidades</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 gap-8">
           <Card>
             <CardContent className="p-6 space-y-4">
               <h3 className="text-xl font-semibold">Mi historia</h3>
@@ -44,18 +31,13 @@ export default function About() {
                 de Licenciatura en Producción de Videojuegos, donde junto a mis estudiantes creamos prototipos de juegos
                 2D en HTML5.
               </p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-6 space-y-4">
-              <h3 className="text-xl font-semibold">Habilidades</h3>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((skill) => (
-                  <Badge key={skill} variant="secondary">
-                    {skill}
-                  </Badge>
-                ))}
+              <div className="pt-4 flex justify-end">
+                <Button asChild>
+                  <Link href="/about">
+                    Ver más sobre mí
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               </div>
             </CardContent>
           </Card>

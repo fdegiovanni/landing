@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { navLinks } from "@/lib/nav-links"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,17 +22,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-
-  // Definir enlaces del navegador usando las traducciones
-  const navLinks: { href: string, label: string }[] = [
-    { href: "/", label: 'Inicio' },
-    { href: "/about", label: "Sobre mi" },
-    { href: "/projects", label: "Proyectos" },
-    { href: "/blog", label: "Blog" },
-    { href: "/terminal", label: "Terminal" },
-    { href: "/contact", label: "Contacto" },
-  ]
 
   return (
     <header

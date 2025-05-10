@@ -8,6 +8,9 @@ const config: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  images: {
+    domains: ['avatars.githubusercontent.com'],
+  }
 }
 
 export default config;

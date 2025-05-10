@@ -29,7 +29,7 @@ export default function Contact() {
                 <MapPin className="h-6 w-6 text-primary" />
                 <div>
                   <h3 className="font-medium">Ubicación</h3>
-                  <p className="text-muted-foreground">Córdoba, Argentina</p>
+                  <p className="text-muted-foreground">Rafaela, Argentina</p>
                 </div>
               </CardContent>
             </Card>

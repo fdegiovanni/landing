@@ -15,7 +15,7 @@ export const profile = {
         linkedin: "https://www.linkedin.com/in/fdegiovanni/",
         twitter: "https://twitter.com/fdegiovanni1",
         blue: "",
-        instgram: "",
+        instagram: "",
         email: "federicoadegiovanni@gmail.com",
     },
     description: "",

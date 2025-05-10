@@ -1,0 +1,70 @@
+/* Estilos específicos para la página About */
+
+/* 3D Flip Card Styles */
+.perspective {
+    perspective: 1000px;
+  }
+  
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  
+  .rotate-y-0 {
+    transform: rotateY(0deg);
+  }
+  
+  /* Scrollbar Hide */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  /* Timeline Item Active State */
+  .timeline-item[data-active="true"] {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.2);
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  
+  .timeline-item[data-active="false"] {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+  
+  /* Timeline Item Hover */
+  .timeline-item:hover {
+    cursor: pointer;
+    opacity: 0.9;
+  }
+  
+  /* Responsive Timeline Image Container */
+  @media (min-width: 1024px) {
+    .timeline-image-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  }
+
+  /* Flip Card Height Transition */
+.flip-card-container {
+  transition: height 0.5s ease;
+}
+
+/* Green Border for Back Card */
+.flip-card-back {
+  border: 2px solid #22c55e; /* Tailwind green-500 */
+}
+
+.bg-card.no-color {
+  background-color: transparent !important;
+}

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { Github, Linkedin, Twitter, Instagram } from "lucide-react"
 import { usePathname } from "next/navigation"
+import { navLinks } from "@/lib/nav-links"
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -26,30 +27,13 @@ export default function Footer() {
 
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">
             <nav className="flex space-x-6">
-              <Link
-                href= "/about"
-                className="text-sm text-muted-foreground hover:text-primary"
-              >
-                Sobre mí
-              </Link>
-              <Link
-                href="/projects"
-                className="text-sm text-muted-foreground hover:text-primary"
-              >
-                Proyectos
-              </Link>
-              <Link
-                href="/blog"
-                className="text-sm text-muted-foreground hover:text-primary"
-              >
-                Blog
-              </Link>
-              <Link
-                href="/contact"
-                className="text-sm text-muted-foreground hover:text-primary"
-              >
-                Contacto
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm text-muted-foreground hover:text-primary"
+                  >{link.label}</Link>
+              ))}
             </nav>
 
             <div className="flex items-center space-x-4">

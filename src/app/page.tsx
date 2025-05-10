@@ -10,8 +10,8 @@ export default function Home() {
     <div className="container mx-auto px-4">
       <Hero />
       <About />
-      <Projects />
-      <BlogPreview />
+      <Projects projects={[]}/>
+      <BlogPreview posts={[]} />
       <TerminalPreview />
       <Contact />
     </div>

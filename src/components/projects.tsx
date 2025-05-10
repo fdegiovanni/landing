@@ -5,8 +5,21 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-export default function Projects() {
-  const projects = [
+interface Project {
+  title: string;
+  description: string;
+  image: string;
+  tags: string[];
+  demoUrl: string;
+  repoUrl: string;
+}
+
+interface ProjectsProps {
+  projects: Project[];
+}
+
+export default function Projects({ projects }: ProjectsProps) {
+  /* const projects = [
     {
       title: "E-commerce Dashboard",
       description: "Panel de administración para tiendas online con análisis de datos y gestión de inventario.",
@@ -31,7 +44,11 @@ export default function Projects() {
       demoUrl: "#",
       repoUrl: "#",
     },
-  ]
+  ] */
+
+    if (!projects || projects.length === 0) {
+      return (null)
+    }
 
   return (
     <section id="projects" className="py-16">

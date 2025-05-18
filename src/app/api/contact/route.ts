@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     // Apply rate limiting if available
     if (ratelimit) {
-      const { success, limit, reset, remaining } = await ratelimit.limit(ip)
+      const { success, limit, reset } = await ratelimit.limit(ip)
 
       if (!success) {
         return NextResponse.json(

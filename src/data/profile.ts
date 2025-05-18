@@ -18,6 +18,7 @@ export const profile = {
         instagram: "",
         email: "federicoadegiovanni@gmail.com",
         mobile: "+5493564599872",
+        cafecito: "https://cafecito.app/fdegiovanni"
     },
     description: "",
     history: [

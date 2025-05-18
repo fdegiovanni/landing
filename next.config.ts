@@ -1,7 +1,7 @@
-const withNextIntl = require("next-intl/plugin")()
+import {NextConfig} from 'next';
 
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+
+const config: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -9,9 +9,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
-    domains: ["sjc.microlink.io"],
-  },
+    domains: ['avatars.githubusercontent.com'],
+  }
 }
 
-module.exports = withNextIntl(nextConfig)
+export default config;

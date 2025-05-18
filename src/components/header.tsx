@@ -1,41 +1,18 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect  } from "react"
+import { Menu, X } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Menu, X, Globe } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ModeToggle } from "@/components/mode-toggle"
-import { cn } from "@/lib/utils"
-import { useTranslations, useLocale } from "next-intl"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import {useRouter} from '@/i18n/navigation';
+import { navLinks } from "@/lib/nav-links"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
-  const locale = useLocale()
-  const router = useRouter()
-  const t = useTranslations("nav")
 
- /*  const locales = [
-    {
-      code: "en",
-      name: "english",
-      flag: "🇬🇧",
-    },
-    {
-      code: "es",
-      name: "spanish",
-      flag: "🇪🇸",
-    },
-    {
-      code: "pt",
-      name: "portuguese",
-      flag: "🇧🇷",
-    }
-  ] */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,26 +22,6 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
-
-  const handleLocaleChange = (newLocale: string) => {
-    router.replace(pathname || "/", { locale: newLocale })
-  }
-
-  const getLanguageName = (locale: { code: string; name: string; flag: string }) => {
-    let translatedName = t(locale.name);
-    
-    return `${locale.flag} ${translatedName}`;
-  }
-
-  // Definir enlaces del navegador usando las traducciones
-  const navLinks = [
-    { href: "/", label: t("home") },
-    { href: "/about", label: t("about") },
-    { href: "/projects", label: t("projects") },
-    { href: "/blog", label: t("blog") },
-    { href: "/terminal", label: t("terminal") },
-    { href: "/contact", label: t("contact") },
-  ]
 
   return (
     <header
@@ -82,7 +39,7 @@ export default function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
+           {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -94,54 +51,7 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <div className="flex items-center space-x-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" aria-label="Change language">
-                    <Globe className="h-5 w-5" />
-                  </Button>
-                </DropdownMenuTrigger>
-                {/* <DropdownMenuContent align="end">
-                  {locales.map((l) => (
-                    <DropdownMenuItem
-                      key={l.code}
-                      onClick={() => handleLocaleChange(l.code)}
-                      className={l.code === locale ? "bg-muted" : ""}
-                    >
-                      {getLanguageName(l)}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent> */}
-              </DropdownMenu>
-              <ModeToggle />
-            </div>
           </nav>
-
-          <div className="flex md:hidden items-center">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" aria-label="Change language">
-                  <Globe className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-{/*               <DropdownMenuContent align="end">
-                {locales?.map((l) => (
-                  <DropdownMenuItem
-                    key={l.code}
-                    onClick={() => handleLocaleChange(l.code)}
-                    className={l.code === locale ? "bg-muted" : ""}
-                  >
-                    {getLanguageName(l)}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent> */}
-            </DropdownMenu>
-            <ModeToggle />
-            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)} className="ml-2">
-              <Menu className="h-5 w-5" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
-          </div>
         </div>
       </div>
 

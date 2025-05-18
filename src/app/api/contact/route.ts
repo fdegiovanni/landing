@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
         return NextResponse.json(
           {
             success: false,
-            message: `Too many requests. Please try again after ${Math.ceil((reset - Date.now()) / 1000 / 60)} minutes.`,
+            message: `Too many requests. Please try again after ${Math.round((reset - Date.now()) / 1000 / 60)} minutes.`,
           },
           { status: 429 },
         )

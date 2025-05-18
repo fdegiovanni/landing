@@ -1,73 +1,136 @@
-import { Mail, MapPin } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import {
+  Mail,
+  MapPin,
+  Globe,
+  Linkedin,
+  Instagram,
+  Twitter,
+  Beer,
+  Github,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import ContactForm from "@/components/contact-form";
+import { profile } from "@/data/profile";
 
 export default function Contact() {
+  const {
+    social: { linkedin, email, instagram, twitter, github, cafecito },
+  } = profile;
   return (
-    <section id="contact" className="py-16">
-      <div className="space-y-8">
-        <div className="space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Contacto</h2>
-          <p className="text-muted-foreground">¿Tienes un proyecto en mente? ¡Hablemos!</p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <Card>
-              <CardContent className="p-6 flex items-start space-x-4">
-                <Mail className="h-6 w-6 text-primary" />
-                <div>
-                  <h3 className="font-medium">Email</h3>
-                  <p className="text-muted-foreground">federicodegiovanni@gmail.com</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="p-6 flex items-start space-x-4">
-                <MapPin className="h-6 w-6 text-primary" />
-                <div>
-                  <h3 className="font-medium">Ubicación</h3>
-                  <p className="text-muted-foreground">Rafaela, Argentina</p>
-                </div>
-              </CardContent>
-            </Card>
+    <div className="container mx-auto py-12 px-4">
+      <div className="grid md:grid-cols-2 gap-12">
+        {/* Información de contacto y redes sociales */}
+        <div className="space-y-8">
+          <div>
+            <h2 className="text-3xl font-bold mb-6">Conectemos</h2>
+            <p className="text-lg text-muted-foreground mb-8">
+              Estoy disponible para proyectos, colaboraciones o simplemente para
+              charlar sobre tecnología.
+            </p>
           </div>
 
-          <form className="space-y-4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium">
-                  Nombre
-                </label>
-                <Input id="name" placeholder="Tu nombre" />
+          {/* Información de contacto */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Mail className="h-5 w-5 text-primary" />
+              <a href={`mailto:${email}`} className="hover:underline">
+                {email}
+              </a>
+            </div>
+            <div className="flex items-center gap-3">
+              <Globe className="h-5 w-5 text-primary" />
+              <span>De Argentina para el mundo</span>
+            </div>
+          </div>
+
+          {/* Redes sociales */}
+          <div className="space-y-4 pt-8">
+            <h3 className="text-xl font-semibold">Sígueme en redes sociales</h3>
+            <div className="flex gap-3">
+              <Button variant="outline" size="icon" asChild>
+                <a
+                  href={github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                >
+                  <Github className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a
+                  href={linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a
+                  href={instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+              </Button>
+              <Button variant="outline" size="icon" asChild>
+                <a
+                  href={twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter"
+                >
+                  <Twitter className="h-5 w-5" />
+                </a>
+              </Button>
+            </div>
+          </div>
+
+          <div className="relative rounded-lg overflow-hidden pt-8">
+            <h3 className="text-xl font-semibold mb-4">
+              ¿Te gusta mi trabajo?
+            </h3>
+            <div className="flex flex-col md:flex-row gap-4 items-center md:items-start">
+              <div className="shrink-0">
+              <a
+                  href={cafecito}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                <img
+                  src="/assets/images/little-beer.png"
+                  alt="Cerveza"
+                  className="w-24 h-24 object-contain"
+                />
+                </a>
               </div>
-              <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium">
-                  Email
-                </label>
-                <Input id="email" type="email" placeholder="tu@email.com" />
-              </div>
+              <p className="text-lg text-muted-foreground">
+                Si te gusta lo que hago y quieres apoyarme, considera{" "}
+                <a
+                  href={cafecito}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  invitarme un cafecito o mejor una cervecita
+                </a>
+                . Tu apoyo significa mucho para mí y me ayuda a seguir creando
+                contenido de calidad.
+              </p>
             </div>
-            <div className="space-y-2">
-              <label htmlFor="subject" className="text-sm font-medium">
-                Asunto
-              </label>
-              <Input id="subject" placeholder="Asunto del mensaje" />
-            </div>
-            <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium">
-                Mensaje
-              </label>
-              <Textarea id="message" placeholder="Tu mensaje" rows={5} />
-            </div>
-            <Button type="submit" className="w-full">
-              Enviar mensaje
-            </Button>
-          </form>
+          </div>
+        </div>
+
+        {/* Formulario de contacto */}
+        <div>
+          <h2 className="text-3xl font-bold mb-6">Envíame un mensaje</h2>
+          <ContactForm />
         </div>
       </div>
-    </section>
-  )
+    </div>
+  );
 }

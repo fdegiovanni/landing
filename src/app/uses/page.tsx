@@ -116,8 +116,8 @@ export default function UsesPage() {
       <section key={section.title} className="mb-12">
         <h2 className="text-2xl font-bold mb-4 border-b pb-2">{section.title}</h2>
         <ul className="space-y-3 list-disc pl-6">
-        {section.items.map((item, index) => (
-              <UseItemRenderer key={index} item={item} />
+        {section.items.map((item) => (
+              <UseItemRenderer key={item.title} item={item} />
             ))}
         </ul>
       </section>

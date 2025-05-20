@@ -88,6 +88,8 @@ function UseItemRenderer({ item }: { item: UseItem }) {
             )}
           </li>
         );
+      default:
+        return <li className="text-red-500">Error: Unsupported item type "{item.type}"</li>;
     }
   }
 

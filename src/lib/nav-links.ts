@@ -5,4 +5,5 @@ export const navLinks: { href: string, label: string }[] = [
     // { href: "/blog", label: "Blog" },
     { href: "/terminal", label: "Terminal" },
     { href: "/contact", label: "Contacto" },
+    { href: "/uses", label: "Uses" },
   ]

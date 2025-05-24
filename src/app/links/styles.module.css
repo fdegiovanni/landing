@@ -1,0 +1,187 @@
+.gradientBackground {
+    background: linear-gradient(135deg, #082f49 0%, #0ea5e9 100%);
+    background-size: 200% 200%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+  
+  .profileImage {
+    border: 3px solid white;
+    box-shadow: 0 0 20px rgba(125, 211, 252, 0.5);
+  }
+  
+  .socialIcon {
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+  }
+  
+  .socialIcon:hover {
+    transform: scale(1.2);
+    color: #7dd3fc;
+  }
+  
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .glowText {
+    text-shadow: 0 0 10px rgba(125, 211, 252, 0.7);
+  }
+  
+  /* Efecto holográfico para las tarjetas */
+  .holographicCard {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    background: rgba(8, 47, 73, 0.6);
+    border: 1px solid rgba(125, 211, 252, 0.3);
+  }
+  
+  .holographicCard::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 300%;
+    height: 300%;
+    background: linear-gradient(0deg, transparent, transparent 30%, rgba(56, 189, 248, 0.3));
+    transform: rotate(-45deg);
+    transition: all 0.8s ease;
+    opacity: 0;
+  }
+  
+  .holographicCard:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+    border-color: rgba(56, 189, 248, 0.8);
+    background: rgba(8, 47, 73, 0.8);
+  }
+  
+  .holographicCard:hover::before {
+    opacity: 1;
+    transform: rotate(-45deg) translateY(50%);
+  }
+  
+  .holographicIcon {
+    position: relative;
+    z-index: 2;
+    transition: all 0.5s ease;
+  }
+  
+  .holographicCard:hover .holographicIcon {
+    transform: scale(1.1);
+    color: #38bdf8;
+  }
+  
+  .holographicTitle {
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+  }
+  
+  .holographicCard:hover .holographicTitle {
+    text-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+  }
+  
+  /* Efecto de código para la tarjeta de portafolio */
+  .codeEffect::after {
+    content: "<code/>";
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-family: monospace;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    color: #38bdf8;
+    transition: all 0.3s ease;
+  }
+  
+  .holographicCard:hover .codeEffect::after {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  
+  /* Efecto de documento para la tarjeta de blog */
+  .docEffect::after {
+    content: "{ ... }";
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-family: monospace;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    color: #38bdf8;
+    transition: all 0.3s ease;
+  }
+  
+  .holographicCard:hover .docEffect::after {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  
+  /* Efecto de experiencia para la tarjeta de experiencia */
+  .expEffect::after {
+    content: "⭐⭐⭐";
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 0.7rem;
+    opacity: 0.5;
+    color: #38bdf8;
+    transition: all 0.3s ease;
+  }
+  
+  .holographicCard:hover .expEffect::after {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  
+  /* Efecto de contacto para la tarjeta de contacto */
+  .contactEffect::after {
+    content: "@";
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    opacity: 0.5;
+    color: #38bdf8;
+    transition: all 0.3s ease;
+  }
+  
+  .holographicCard:hover .contactEffect::after {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  
+  /* Efecto de café para la tarjeta de cafecito */
+  .beerEffect::after {
+    content: "🍺";
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    font-size: 0.9rem;
+    opacity: 0.5;
+    color: #38bdf8;
+    transition: all 0.3s ease;
+  }
+  
+  .holographicCard:hover .beerEffect::after {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+  

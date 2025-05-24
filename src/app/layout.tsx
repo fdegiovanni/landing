@@ -27,21 +27,17 @@ export function generateMetadata() {
   };
 }
 
-export default async function LocaleLayout({
+// Importamos el nuevo componente cliente
+import ClientLayoutContent from "@/components/ClientLayoutContent"
+
+export default function RootLayout({
   children,
 }: Props) {
-
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            <div className="flex min-h-screen flex-col">
-              <Header />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </div>
-          </ThemeProvider>
+        <ClientLayoutContent>{children}</ClientLayoutContent>
       </body>
     </html>
-  )
+  );
 }

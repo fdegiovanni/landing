@@ -122,10 +122,9 @@ export default function AboutPage() {
                 Mi objetivo es continuar desarrollándome en el campo de la ingeniería de software, con una visión global y un compromiso local, contribuyendo a proyectos innovadores que impulsen el desarrollo tecnológico y social.
             </p>
           </div>
-
           <Tabs defaultValue="experience" className="mb-12">
             <TabsList className="mb-4">
-              <TabsTrigger value="experience">Experiencia</TabsTrigger>
+              <TabsTrigger id="experience" value="experience">Experiencia</TabsTrigger>
               <TabsTrigger value="skills">Habilidades</TabsTrigger>
               <TabsTrigger value="education">Educación</TabsTrigger>
               <TabsTrigger value="hobbies">Curiosidades</TabsTrigger>

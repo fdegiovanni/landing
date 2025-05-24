@@ -125,9 +125,9 @@ export default function AboutPage() {
           <Tabs defaultValue="experience" className="mb-12">
             <TabsList className="mb-4">
               <TabsTrigger id="experience" value="experience">Experiencia</TabsTrigger>
-              <TabsTrigger value="skills">Habilidades</TabsTrigger>
-              <TabsTrigger value="education">Educación</TabsTrigger>
-              <TabsTrigger value="hobbies">Curiosidades</TabsTrigger>
+              <TabsTrigger id="skills" value="skills">Habilidades</TabsTrigger>
+              <TabsTrigger id="education" value="education">Educación</TabsTrigger>
+              <TabsTrigger id="hobbies" value="hobbies">Curiosidades</TabsTrigger>
             </TabsList>
 
             <TabsContent value="experience" className="space-y-6">

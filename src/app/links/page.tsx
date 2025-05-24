@@ -117,9 +117,9 @@ export default function LinksPage() {
 
       {/* Enlaces con efecto holográfico */}
       <div className="w-full max-w-md space-y-4 mb-8">
-        {links.map((link, index) => (
+        {links.map((link) => (
           <Link
-            key={index}
+            key={link.href}
             href={link.href}
             className={`flex items-center p-4 rounded-xl bg-gradient-to-r ${link.color} ${styles.holographicCard} ${link.comingSoon ? "opacity-50" : ""}`}
             target={link.external ? "_blank" : "_self"}

@@ -1,6 +1,5 @@
-import type { Config } from "tailwindcss"
-
-const config = {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   darkMode: ["class"],
   content: [
     "./src/pages/**/*.{ts,tsx}",
@@ -62,6 +61,8 @@ const config = {
       fontFamily: {
         sans: ["var(--font-inter)"],
         mono: ["var(--font-mono)"],
+        poppins: ["var(--font-poppins)"],
+        montserrat: ["var(--font-montserrat)"],
       },
       typography: {
         DEFAULT: {
@@ -73,6 +74,4 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config
-
-export default config
+}

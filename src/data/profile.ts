@@ -1,4 +1,5 @@
 export const profile = {
+    username: "fdegiovanni",
     name: "Federico",
     lastName: "Degiovanni",
     fullName: "Federico Degiovanni",
@@ -18,7 +19,8 @@ export const profile = {
         instagram: "",
         email: "federicoadegiovanni@gmail.com",
         mobile: "+5493564599872",
-        cafecito: "https://cafecito.app/fdegiovanni"
+        cafecito: "https://cafecito.app/fdegiovanni",
+        web: "https://fdegiovanni.com",
     },
     description: "",
     history: [

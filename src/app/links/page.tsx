@@ -41,14 +41,18 @@ export default function LinksPage() {
 
   useEffect(() => {
     let iaIndex = 0;
-    
-    const interval = setInterval(() => {
-      iaIndex = (iaIndex + 1) % iaOptions.length;
-      
-      setIaText(iaOptions[iaIndex]);
-    }, iaIndex === 4 ? 5000 : 3000);
+    let timeoutId: NodeJS.Timeout;
 
-    return () => clearInterval(interval);
+    const updateIaText = () => {
+      iaIndex = (iaIndex + 1) % iaOptions.length;
+      setIaText(iaOptions[iaIndex]);
+      const delay = iaIndex === 4 ? 5000 : 3000;
+      timeoutId = setTimeout(updateIaText, delay);
+    };
+
+    updateIaText();
+
+    return () => clearTimeout(timeoutId);
   }, []);
   
   useEffect(() => {

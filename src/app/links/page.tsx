@@ -127,7 +127,7 @@ export default function LinksPage() {
             onClick={link.comingSoon ? (e) => e.preventDefault() : undefined}
           >
             <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-sm rounded-lg mr-4">
-              {link.icon === "Code" && <Globe className={`w-5 h-5 ${styles.holographicIcon}`} />}
+              {link.icon === "Code" && <Code className={`w-5 h-5 ${styles.holographicIcon}`} />}
               {link.icon === "FileText" && <FileText className={`w-5 h-5 ${styles.holographicIcon}`} />}
               {link.icon === "Briefcase" && <Briefcase className={`w-5 h-5 ${styles.holographicIcon}`} />}
               {link.icon === "Mail" && <Mail className={`w-5 h-5 ${styles.holographicIcon}`} />}

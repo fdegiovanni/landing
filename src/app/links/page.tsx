@@ -65,7 +65,7 @@ export default function LinksPage() {
       className={`min-h-screen flex flex-col items-center py-8 px-4 ${styles.gradientBackground} text-white font-sans`}
     >
       <div className="flex flex-col items-center mb-8">
-        <div className={`relative w-28 h-28 rounded-full overflow-hidden mb-5 ${styles.personalDataImage}`}>
+        <div className={`relative w-28 h-28 rounded-full overflow-hidden mb-5 ${styles.profileImage}`}>
           <Image
             src={personalData.avatars.fromGithub || "/placeholder.svg"}
             alt={personalData.avatars.alt}

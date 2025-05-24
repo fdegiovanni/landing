@@ -108,8 +108,8 @@ export default function LinksPage() {
 
       {/* Habilidades destacadas */}
       <div className="flex flex-wrap justify-center gap-2 mb-8">
-        {randomSkills.map((skill, index) => (
-          <span key={index} className="px-3 py-1 bg-white/10 rounded-full text-xs backdrop-blur-sm">
+        {randomSkills.map((skill) => (
+          <span key={skill.name} className="px-3 py-1 bg-white/10 rounded-full text-xs backdrop-blur-sm">
             {skill.name}
           </span>
         ))}

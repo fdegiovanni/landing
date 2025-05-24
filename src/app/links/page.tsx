@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Twitter, Linkedin, Github, Mail, Globe, FileText, Briefcase, Coffee, Beer } from "lucide-react"
+import { Twitter, Linkedin, Github, Mail, Globe, FileText, Briefcase, Coffee, Beer, Code } from "lucide-react"
 import styles from "./styles.module.css"
 import { personalData, links } from "./data"
 

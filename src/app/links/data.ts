@@ -1,4 +1,3 @@
-import { use } from "react"
 import { profile } from "../../data/profile"
 
 export const personalData = {

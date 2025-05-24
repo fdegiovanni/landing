@@ -23,6 +23,9 @@ export default function Footer() {
             <p className="text-sm text-muted-foreground mt-2">
               © {currentYear} fdegiovanni
             </p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Creado con <a href="https://v0.dev" target="_blank" rel="noopener noreferrer" className="hover:text-primary">V0</a> y <a href="https://github.com/features/copilot" target="_blank" rel="noopener noreferrer" className="hover:text-primary">GitHub Copilot</a>
+            </p>
           </div>
 
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8">

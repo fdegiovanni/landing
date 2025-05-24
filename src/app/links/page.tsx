@@ -121,7 +121,7 @@ export default function LinksPage() {
           <Link
             key={index}
             href={link.href}
-            className={`flex items-center p-4 rounded-xl ${styles.holographicCard} ${link.comingSoon ? "opacity-50" : ""}`}
+            className={`flex items-center p-4 rounded-xl bg-gradient-to-r ${link.color} ${styles.holographicCard} ${link.comingSoon ? "opacity-50" : ""}`}
             target={link.external ? "_blank" : "_self"}
             rel={link.external ? "noopener noreferrer" : undefined}
             onClick={link.comingSoon ? (e) => e.preventDefault() : undefined}

@@ -2,7 +2,6 @@ import { profile } from "../../data/profile"
 
 export const personalData = {
   username: profile.username,
-  name: profile.fullName,
   fullName: profile.fullName,
   title: profile.title,
   avatars: profile.avatars,

@@ -8,6 +8,8 @@ import { Card } from "@/components/ui/card"
 import { TerminalIcon, User, Briefcase, BookOpen, Mail, HelpCircle, X } from "lucide-react"
 import { useAsciiText, starWars } from 'react-ascii-text';
 import { profile } from "@/data/profile"
+import { fetchHashnodePosts } from "@/lib/hashnode-api"
+import type { HashnodePost } from "@/types/blog"
 
 type CommandType = {
   command: string
@@ -16,6 +18,8 @@ type CommandType = {
 
 
 export default function TerminalPage() {
+  const [posts, setPosts] = useState<HashnodePost[]>([])
+
   function LogoCLI() {
     const asciiTextRef = useAsciiText({
       font: starWars,
@@ -23,6 +27,40 @@ export default function TerminalPage() {
     });
   
     return <pre className="text-xs" ref={asciiTextRef as React.RefObject<HTMLPreElement>}></pre>;
+  }
+
+  const getPosts = async () => {
+    try {
+      const {posts: newPosts} = await fetchHashnodePosts(profile.social.hashnode, 3, "");
+      console.log("Hashnode posts fetched:", newPosts);
+      setPosts(newPosts);
+    } catch (error) {
+      console.error("Error fetching Hashnode posts:", error);
+    }
+  }
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  const postCLI = () => {
+    if (posts.length === 0) {
+      return "No hay artículos recientes.";
+    }
+
+    return (
+      <div className="space-y-2">
+        <ul className="space-y-1">
+          {posts.map((post) => (
+            <li key={post._id}>
+              <a href={post.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                {post.title}
+              </a> - {new Date(post.publishedAt).toLocaleDateString()}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 
   
@@ -267,11 +305,7 @@ export default function TerminalPage() {
         output = (
           <div className="space-y-2">
             <p className="font-bold">Artículos recientes</p>
-            <ul className="space-y-1">
-              <li>
-                ⚛️ <span className="text-primary">Titulo</span> - 10 Abril, 2023
-              </li>
-            </ul>
+            {postCLI()}
             <p className="mt-2">
               Escribe <span className="text-primary font-bold">open blog</span> para ver todos los artículos.
             </p>

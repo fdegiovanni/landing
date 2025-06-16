@@ -3,7 +3,6 @@ import About from "@/components/about"
 import Projects from "@/components/projects"
 import Contact from "@/components/contact"
 import TerminalPreview from "@/components/terminal-preview"
-import BlogPreview from "@/components/blog-preview"
 import { AIAdventuresCarousel } from "@/components/ai-adventures-carousel"
 
 export default function Home() {
@@ -13,7 +12,6 @@ export default function Home() {
       <About />
       <AIAdventuresCarousel />
       <Projects projects={[]}/>
-      <BlogPreview posts={[]} />
       <TerminalPreview />
       <Contact />
     </div>

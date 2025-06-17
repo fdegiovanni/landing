@@ -21,6 +21,7 @@ export const profile = {
         mobile: "+5493564599872",
         cafecito: "https://cafecito.app/fdegiovanni",
         web: "https://fdegiovanni.com",
+        hashnode: "fdegiovanni.hashnode.dev",
     },
     description: "",
     history: [

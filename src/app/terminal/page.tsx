@@ -52,7 +52,7 @@ export default function TerminalPage() {
       <div className="space-y-2">
         <ul className="space-y-1">
           {posts.map((post) => (
-            <li key={post._id}>
+            <li key={post.id}>
               <a href={post.url} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                 {post.title}
               </a> - {new Date(post.publishedAt).toLocaleDateString()}

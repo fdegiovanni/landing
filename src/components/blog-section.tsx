@@ -46,24 +46,7 @@ export function BlogSection({ publicationHost, maxPosts = 6, showPagination = tr
     if (selectedTags.length > 0) {
       filtered = filtered.filter((post) =>
         selectedTags.some((selectedTag) =>
-          post.tags.some((postTag) => {
-            const selectedLower = selectedTag.toLowerCase()
-            const postTagLower = postTag.name.toLowerCase()
-
-            return (
-              postTagLower === selectedLower ||
-              postTagLower.includes(selectedLower) ||
-              selectedLower.includes(postTagLower) ||
-              (selectedLower === "javascript" && (postTagLower === "js" || postTagLower.includes("javascript"))) ||
-              (selectedLower === "typescript" && (postTagLower === "ts" || postTagLower.includes("typescript"))) ||
-              (selectedLower === "next.js" && (postTagLower.includes("next") || postTagLower.includes("nextjs"))) ||
-              (selectedLower === "node.js" && (postTagLower.includes("node") || postTagLower.includes("nodejs"))) ||
-              (selectedLower === "react" && (postTagLower.includes("react") || postTagLower.includes("reactjs"))) ||
-              (selectedLower === "html" && postTagLower.includes("html")) ||
-              (selectedLower === "css" && (postTagLower.includes("css") || postTagLower.includes("scss") || postTagLower.includes("sass"))) ||
-              (selectedLower === "vibecoding" && (postTagLower.includes("vibe") || postTagLower.includes("vibecoding") || postTagLower.includes("vibe coding") || postTagLower.includes("vibe-coding")))
-            )
-          }),
+          post.tags.some((postTag) => matchesTag(selectedTag, postTag.name)),
         ),
       )
     }

@@ -382,6 +382,17 @@ function TripStats({ date, state }: { date: string; state: TripState }) {
 function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
   const weather = tripWeather[city.id]
   const stopNumber = publicCities.findIndex((item) => item.id === city.id) + 1
+  const [photos, setPhotos] = useState<
+    Array<{ public_url: string; taken_date: string; width: number; height: number }>
+  >([])
+
+  useEffect(() => {
+    setPhotos([])
+    fetch(`/api/europa/photos?city=${city.id}`)
+      .then((r) => r.json())
+      .then((data) => setPhotos(data.photos ?? []))
+      .catch(() => {})
+  }, [city.id])
 
   return (
     <article className={styles.cityDetail}>
@@ -429,15 +440,34 @@ function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
         </div>
 
         <InfoBlock title="fotos del cron">
-          <div className={styles.photoGrid}>
-            {["📷", "🌅", "🍽️", "🚶"].map((emoji, index) => (
-              <div key={index} className={styles.photoPlaceholder}>
-                <span>{emoji}</span>
-                <small>proximamente</small>
+          {photos.length > 0 ? (
+            <>
+              <div className={styles.photoGrid}>
+                {photos.slice(0, 10).map((photo, i) => (
+                  <div key={i} className={styles.photoPlaceholder}>
+                    <img
+                      src={photo.public_url}
+                      alt={`${city.name} · foto ${i + 1}`}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 4 }}
+                    />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-          <p className={styles.photoNote}>Se van a subir cada dia desde mi camara.</p>
+              <p className={styles.photoNote}>{photos[0].taken_date}</p>
+            </>
+          ) : (
+            <>
+              <div className={styles.photoGrid}>
+                {["📷", "🌅", "🍽️", "🚶"].map((emoji, index) => (
+                  <div key={index} className={styles.photoPlaceholder}>
+                    <span>{emoji}</span>
+                    <small>proximamente</small>
+                  </div>
+                ))}
+              </div>
+              <p className={styles.photoNote}>Se van a subir cada dia desde mi camara.</p>
+            </>
+          )}
         </InfoBlock>
 
         <a className={styles.attribution} href={city.image.sourceUrl} target="_blank" rel="noreferrer">

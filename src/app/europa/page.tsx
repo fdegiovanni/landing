@@ -453,7 +453,13 @@ function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
                   </div>
                 ))}
               </div>
-              <p className={styles.photoNote}>{photos[0].taken_date}</p>
+              <p className={styles.photoNote}>
+                {(() => {
+                  const shown = photos.slice(0, 10)
+                  const oldest = shown[shown.length - 1].taken_date
+                  return oldest === shown[0].taken_date ? shown[0].taken_date : `${oldest} – ${shown[0].taken_date}`
+                })()}
+              </p>
             </>
           ) : (
             <>

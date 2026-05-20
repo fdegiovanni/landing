@@ -7,8 +7,8 @@ create table if not exists europa_photos (
   public_url      text not null,
   width           integer,
   height          integer,
-  score           integer,
-  display_order   integer,
+  score           integer not null default 0,
+  display_order   integer not null default 0,
   synced_at       timestamptz default now()
 );
 

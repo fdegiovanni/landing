@@ -62,7 +62,7 @@ export function selectTopPhotos(
 
   // Round-robin across hours: pick best-remaining from each hour in turn
   const selected: GooglePhotoMetadata[] = []
-  const hours = Array.from(byHour.keys()).sort()
+  const hours = Array.from(byHour.keys()).sort((a, b) => a - b)
   let round = 0
 
   outer: while (true) {

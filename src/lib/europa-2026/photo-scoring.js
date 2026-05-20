@@ -45,7 +45,7 @@ function selectTopPhotos(photos, count = 10) {
     }
     // Round-robin across hours: pick best-remaining from each hour in turn
     const selected = [];
-    const hours = Array.from(byHour.keys()).sort();
+    const hours = Array.from(byHour.keys()).sort((a, b) => a - b);
     let round = 0;
     outer: while (true) {
         let addedThisRound = false;

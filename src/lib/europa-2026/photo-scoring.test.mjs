@@ -71,3 +71,21 @@ test("selectTopPhotos: distributes across hours when many photos available", () 
   const hours = new Set(result.map(p => new Date(p.mediaMetadata.creationTime).getUTCHours()))
   assert.ok(hours.size >= 3, `Expected ≥3 different hours, got ${hours.size}`)
 })
+
+test("selectTopPhotos: correctly prioritizes early-morning hours over mid-day (numeric sort)", () => {
+  // If sort is lexicographic, hour 10 comes before hour 2, breaking chronological order.
+  // This test verifies hour 2 (02:00) is included when selecting 2 from hours 2, 10, 14.
+  const photos = [
+    makePhoto("early", "2026-06-10T02:00:00Z", 4032, 3024), // hour 2
+    makePhoto("mid1",  "2026-06-10T10:00:00Z", 4032, 3024), // hour 10
+    makePhoto("mid2",  "2026-06-10T10:30:00Z", 4032, 3024), // hour 10
+    makePhoto("mid3",  "2026-06-10T10:45:00Z", 4032, 3024), // hour 10
+    makePhoto("aft",   "2026-06-10T14:00:00Z", 4032, 3024), // hour 14
+  ]
+  const result = selectTopPhotos(photos, 3)
+  assert.equal(result.length, 3)
+  // With correct numeric sort, round-robin visits hours [2, 10, 14] in order.
+  // Round 0: picks early (h2), mid1 (h10), aft (h14) → 3 items, done.
+  const ids = result.map(p => p.id)
+  assert.ok(ids.includes("early"), `Expected "early" in result, got: ${ids}`)
+})

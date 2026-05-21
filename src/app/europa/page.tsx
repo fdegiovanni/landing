@@ -14,6 +14,7 @@ import {
   type TripConnection,
 } from "@/data/europa-2026"
 import { daysBetween, getTripState } from "@/lib/europa-2026/trip-state"
+import { calculateTripProgressStats } from "@/lib/europa-2026/trip-progress"
 
 type AccessState = "locked" | "greeted" | "unlocked"
 type StoredSession = {
@@ -406,17 +407,17 @@ function EuropeMap({
 }
 
 function TripStats({ date, state }: { date: string; state: TripState }) {
-  const currentDate = new Date(`${date}T12:00:00Z`).getTime()
-  const totalDays = daysBetween(tripMeta.start, tripMeta.end)
-  const visitedCities = tripCities.filter((city) => currentDate >= new Date(`${city.depart}T12:00:00Z`).getTime())
-  const visitedCountries = new Set(visitedCities.map((city) => city.country))
-  const kmDone = state.phase === "before" ? 0 : state.phase === "after" ? tripMeta.totalKm : Math.round(tripMeta.totalKm * (state.dayOfTrip / totalDays))
+  const { kmDone, countriesDone, citiesDone } = calculateTripProgressStats(
+    date,
+    tripCities,
+    tripMeta
+  )
 
   return (
     <footer className={styles.statsPanel}>
       <div><strong>{kmDone.toLocaleString("es-AR")}</strong><span>km</span></div>
-      <div><strong>{visitedCountries.size}</strong><span>paises</span></div>
-      <div><strong>{visitedCities.length}</strong><span>ciudades</span></div>
+      <div><strong>{countriesDone}</strong><span>paises</span></div>
+      <div><strong>{citiesDone}</strong><span>ciudades</span></div>
       {state.phase !== "before" && state.phase !== "after" && (
         <p className={styles.dailyNote}>Hoy: tres mapas abiertos, dos cafes y una felicidad enorme.</p>
       )}

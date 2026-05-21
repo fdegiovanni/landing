@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/europa/sync-photos",
+      "schedule": "0 23 * * *"
+    }
+  ]
+}

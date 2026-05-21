@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
-import { getPhotosForDate } from "@/lib/europa-2026/google-photos"
+import { downloadPhoto, getPhotosForDate } from "@/lib/europa-2026/google-drive-photos"
 import { selectTopPhotos, resolutionScore } from "@/lib/europa-2026/photo-scoring"
+import { resolvePhotoSourceDate } from "@/lib/europa-2026/sync-photos-options"
 import { tripCities, tripConnections, tripMeta } from "@/data/europa-2026"
 import { getTripState } from "@/lib/europa-2026/trip-state"
 
@@ -21,6 +22,10 @@ export async function GET(request: NextRequest) {
   // Support ?date=YYYY-MM-DD for manual/backfill runs
   const dateParam = request.nextUrl.searchParams.get("date")
   const dateISO = dateParam ?? new Date().toISOString().split("T")[0]
+  const sourceDateISO = resolvePhotoSourceDate(
+    dateISO,
+    request.nextUrl.searchParams.get("sourceDate")
+  )
 
   try {
     const state = getTripState(
@@ -40,22 +45,23 @@ export async function GET(request: NextRequest) {
 
     const city = state.city
 
-    const allPhotos = await getPhotosForDate(dateISO)
+    const allPhotos = await getPhotosForDate(sourceDateISO)
     if (allPhotos.length === 0) {
-      return NextResponse.json({ message: `No photos found for ${dateISO}`, city: city.id })
+      return NextResponse.json({
+        message: `No photos found for ${sourceDateISO}`,
+        date: dateISO,
+        sourceDate: sourceDateISO,
+        city: city.id,
+      })
     }
 
     const topPhotos = selectTopPhotos(allPhotos, 10)
 
     const results = await Promise.all(
       topPhotos.map(async (photo, index) => {
-        const downloadUrl = `${photo.baseUrl}=w1200`
-
         let imgBuffer: ArrayBuffer
         try {
-          const imgResponse = await fetch(downloadUrl)
-          if (!imgResponse.ok) return null
-          imgBuffer = await imgResponse.arrayBuffer()
+          imgBuffer = await downloadPhoto(photo.id)
         } catch {
           return null
         }
@@ -92,7 +98,12 @@ export async function GET(request: NextRequest) {
     )
 
     const synced = results.filter(Boolean)
-    return NextResponse.json({ synced: synced.length, date: dateISO, city: city.id })
+    return NextResponse.json({
+      synced: synced.length,
+      date: dateISO,
+      sourceDate: sourceDateISO,
+      city: city.id,
+    })
   } catch (err) {
     console.error("[sync-photos] error:", err)
     return NextResponse.json({ error: "Sync failed" }, { status: 500 })

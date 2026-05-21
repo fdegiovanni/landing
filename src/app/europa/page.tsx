@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from "react"
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, X } from "lucide-react"
 import styles from "./europa-2026.module.css"
 import {
   tripCities,
@@ -19,6 +20,7 @@ type StoredSession = {
   traveler: TravelerProfile
   expiresAt: number
 }
+type CityPhoto = { public_url: string; taken_date: string; width: number; height: number }
 type TripState =
   | { phase: "before"; dayOfTrip: 0; daysUntil: number }
   | { phase: "in-city"; dayOfTrip: number; city: TripCity }
@@ -316,11 +318,30 @@ function EuropeMap({
   const routeCities = publicCities
   const activeIndex = highlightedCityId ? routeCities.findIndex((city) => city.id === highlightedCityId) : -1
   const activeCity = activeIndex >= 0 ? routeCities[activeIndex] : null
+  const visibleStopCount = 4
+  const maxStartIndex = Math.max(0, routeCities.length - visibleStopCount)
+  const [routeStartIndex, setRouteStartIndex] = useState(() =>
+    Math.min(Math.max(activeIndex >= 0 ? activeIndex : 0, 0), maxStartIndex)
+  )
+  const visibleCities = routeCities.slice(routeStartIndex, routeStartIndex + visibleStopCount)
+
+  useEffect(() => {
+    if (activeIndex < 0) return
+    setRouteStartIndex(Math.min(Math.max(activeIndex - 1, 0), maxStartIndex))
+  }, [activeIndex, maxStartIndex])
 
   function cityStatus(city: TripCity) {
     if (dateValue >= new Date(`${city.depart}T12:00:00Z`).getTime()) return "visited"
     if (city.id === highlightedCityId) return "current"
     return "future"
+  }
+
+  function previousStops() {
+    setRouteStartIndex((index) => Math.max(0, index - 1))
+  }
+
+  function nextStops() {
+    setRouteStartIndex((index) => Math.min(maxStartIndex, index + 1))
   }
 
   return (
@@ -329,26 +350,50 @@ function EuropeMap({
         <span>Ruta clara</span>
         <strong>{activeCity ? `Ahora: ${activeCity.name}` : "Europa 2026"}</strong>
       </div>
-      <div className={styles.schematicMap}>
-        {routeCities.map((city, index) => {
-          const status = cityStatus(city)
-          const isCurrent = city.id === highlightedCityId
+      <div className={styles.routeListPanel}>
+        <button
+          className={styles.routeListControl}
+          onClick={previousStops}
+          disabled={routeStartIndex === 0}
+          aria-label="Subir lista de paradas"
+        >
+          <ChevronUp size={22} strokeWidth={2.5} />
+          <span>anteriores</span>
+        </button>
 
-          return (
-            <button
-              key={city.id}
-              className={`${styles.routeStop} ${styles[`stop-${status}`]} ${isCurrent ? styles.stopCurrent : ""}`}
-              onClick={() => onCity(city)}
-              aria-label={`Parada ${index + 1}: ${city.name}`}
-            >
-              <span className={styles.stopNumber}>{index + 1}</span>
-              <span className={styles.stopText}>
-                <span className={styles.stopName}>{city.name}</span>
-                <span className={styles.stopMeta}>{city.flag} · {formatDay(city.arrive)}</span>
-              </span>
-            </button>
-          )
-        })}
+        <div className={styles.routeListWindow}>
+          {visibleCities.map((city, offset) => {
+            const index = routeStartIndex + offset
+            const status = cityStatus(city)
+            const isCurrent = city.id === highlightedCityId
+
+            return (
+              <button
+                key={city.id}
+                className={`${styles.routeStop} ${styles.routeStopListed} ${styles[`stop-${status}`]} ${isCurrent ? styles.stopCurrent : ""}`}
+                onClick={() => onCity(city)}
+                aria-label={`Ver parada ${index + 1}: ${city.name}`}
+              >
+                <span className={styles.stopNumber}>{index + 1}</span>
+                <span className={styles.stopText}>
+                  <span className={styles.stopName}>{city.name}</span>
+                  <span className={styles.stopMeta}>{city.flag} · {formatDay(city.arrive)}</span>
+                </span>
+                <span className={styles.stopState}>{status === "visited" ? "Visitado" : status === "current" ? "Ahora" : "Falta"}</span>
+              </button>
+            )
+          })}
+        </div>
+
+        <button
+          className={styles.routeListControl}
+          onClick={nextStops}
+          disabled={routeStartIndex >= maxStartIndex}
+          aria-label="Bajar lista de paradas"
+        >
+          <span>siguientes</span>
+          <ChevronDown size={22} strokeWidth={2.5} />
+        </button>
       </div>
       <div className={styles.routeLegend}>
         <span><i className={styles.legendVisited} /> Visitado</span>
@@ -382,17 +427,54 @@ function TripStats({ date, state }: { date: string; state: TripState }) {
 function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
   const weather = tripWeather[city.id]
   const stopNumber = publicCities.findIndex((item) => item.id === city.id) + 1
-  const [photos, setPhotos] = useState<
-    Array<{ public_url: string; taken_date: string; width: number; height: number }>
-  >([])
+  const [photos, setPhotos] = useState<CityPhoto[]>([])
+  const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null)
+  const galleryPhotos = useMemo(() => photos.slice(0, 10), [photos])
+  const activePhoto = activePhotoIndex === null ? null : galleryPhotos[activePhotoIndex] ?? null
 
   useEffect(() => {
     setPhotos([])
+    setActivePhotoIndex(null)
     fetch(`/api/europa/photos?city=${city.id}`)
       .then((r) => r.json())
       .then((data) => setPhotos(data.photos ?? []))
       .catch(() => {})
   }, [city.id])
+
+  useEffect(() => {
+    if (activePhotoIndex === null) return
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setActivePhotoIndex(null)
+      }
+      if (event.key === "ArrowLeft") {
+        setActivePhotoIndex((current) =>
+          current === null ? current : (current - 1 + galleryPhotos.length) % galleryPhotos.length
+        )
+      }
+      if (event.key === "ArrowRight") {
+        setActivePhotoIndex((current) =>
+          current === null ? current : (current + 1) % galleryPhotos.length
+        )
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [activePhotoIndex, galleryPhotos.length])
+
+  function showPreviousPhoto() {
+    setActivePhotoIndex((current) =>
+      current === null ? current : (current - 1 + galleryPhotos.length) % galleryPhotos.length
+    )
+  }
+
+  function showNextPhoto() {
+    setActivePhotoIndex((current) =>
+      current === null ? current : (current + 1) % galleryPhotos.length
+    )
+  }
 
   return (
     <article className={styles.cityDetail}>
@@ -443,19 +525,23 @@ function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
           {photos.length > 0 ? (
             <>
               <div className={styles.photoGrid}>
-                {photos.slice(0, 10).map((photo, i) => (
-                  <div key={i} className={styles.photoPlaceholder}>
+                {galleryPhotos.map((photo, i) => (
+                  <button
+                    key={`${photo.public_url}-${i}`}
+                    className={`${styles.photoPlaceholder} ${styles.photoButton}`}
+                    onClick={() => setActivePhotoIndex(i)}
+                    aria-label={`Ver foto ${i + 1} de ${city.name}`}
+                  >
                     <img
                       src={photo.public_url}
                       alt={`${city.name} · foto ${i + 1}`}
-                      style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: 4 }}
                     />
-                  </div>
+                  </button>
                 ))}
               </div>
               <p className={styles.photoNote}>
                 {(() => {
-                  const shown = photos.slice(0, 10)
+                  const shown = galleryPhotos
                   const oldest = shown[shown.length - 1].taken_date
                   return oldest === shown[0].taken_date ? shown[0].taken_date : `${oldest} – ${shown[0].taken_date}`
                 })()}
@@ -480,6 +566,58 @@ function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
           Imagen inicial: {city.image.attribution}
         </a>
       </div>
+
+      {activePhoto && activePhotoIndex !== null && (
+        <div
+          className={styles.galleryOverlay}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Galeria de fotos de ${city.name}`}
+          onClick={() => setActivePhotoIndex(null)}
+        >
+          <div className={styles.galleryFrame} onClick={(event) => event.stopPropagation()}>
+            <div className={styles.galleryToolbar}>
+              <span>{city.name}</span>
+              <strong>{activePhotoIndex + 1} / {galleryPhotos.length}</strong>
+              <button
+                className={styles.galleryIconButton}
+                onClick={() => setActivePhotoIndex(null)}
+                aria-label="Cerrar galeria"
+              >
+                <X size={20} strokeWidth={2.4} />
+              </button>
+            </div>
+
+            <div className={styles.galleryImageWrap}>
+              {galleryPhotos.length > 1 && (
+                <button
+                  className={`${styles.galleryNavButton} ${styles.galleryPrevButton}`}
+                  onClick={showPreviousPhoto}
+                  aria-label="Foto anterior"
+                >
+                  <ChevronLeft size={28} strokeWidth={2.4} />
+                </button>
+              )}
+              <img
+                src={activePhoto.public_url}
+                alt={`${city.name} · foto ampliada ${activePhotoIndex + 1}`}
+                className={styles.galleryImage}
+              />
+              {galleryPhotos.length > 1 && (
+                <button
+                  className={`${styles.galleryNavButton} ${styles.galleryNextButton}`}
+                  onClick={showNextPhoto}
+                  aria-label="Foto siguiente"
+                >
+                  <ChevronRight size={28} strokeWidth={2.4} />
+                </button>
+              )}
+            </div>
+
+            <p className={styles.galleryDate}>{activePhoto.taken_date}</p>
+          </div>
+        </div>
+      )}
     </article>
   )
 }

@@ -1,6 +1,6 @@
-export interface GooglePhotoMetadata {
+export interface PhotoMetadata {
   id: string
-  baseUrl: string
+  name?: string
   mediaMetadata: {
     creationTime: string
     width: string
@@ -8,7 +8,7 @@ export interface GooglePhotoMetadata {
   }
 }
 
-export function deduplicatePhotos(photos: GooglePhotoMetadata[]): GooglePhotoMetadata[] {
+export function deduplicatePhotos(photos: PhotoMetadata[]): PhotoMetadata[] {
   if (photos.length === 0) return []
 
   const sorted = [...photos].sort(
@@ -17,7 +17,7 @@ export function deduplicatePhotos(photos: GooglePhotoMetadata[]): GooglePhotoMet
       new Date(b.mediaMetadata.creationTime).getTime()
   )
 
-  const result: GooglePhotoMetadata[] = [sorted[0]]
+  const result: PhotoMetadata[] = [sorted[0]]
 
   for (let i = 1; i < sorted.length; i++) {
     const current = sorted[i]
@@ -38,19 +38,19 @@ export function deduplicatePhotos(photos: GooglePhotoMetadata[]): GooglePhotoMet
   return result
 }
 
-export function resolutionScore(photo: GooglePhotoMetadata): number {
+export function resolutionScore(photo: PhotoMetadata): number {
   return parseInt(photo.mediaMetadata.width) * parseInt(photo.mediaMetadata.height)
 }
 
 export function selectTopPhotos(
-  photos: GooglePhotoMetadata[],
+  photos: PhotoMetadata[],
   count = 10
-): GooglePhotoMetadata[] {
+): PhotoMetadata[] {
   const deduped = deduplicatePhotos(photos)
   if (deduped.length <= count) return deduped
 
   // Group by UTC hour, each bucket sorted by resolution desc
-  const byHour = new Map<number, GooglePhotoMetadata[]>()
+  const byHour = new Map<number, PhotoMetadata[]>()
   for (const photo of deduped) {
     const hour = new Date(photo.mediaMetadata.creationTime).getUTCHours()
     if (!byHour.has(hour)) byHour.set(hour, [])
@@ -61,7 +61,7 @@ export function selectTopPhotos(
   }
 
   // Round-robin across hours: pick best-remaining from each hour in turn
-  const selected: GooglePhotoMetadata[] = []
+  const selected: PhotoMetadata[] = []
   const hours = Array.from(byHour.keys()).sort((a, b) => a - b)
   let round = 0
 

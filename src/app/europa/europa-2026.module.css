@@ -40,10 +40,10 @@
 }
 
 .phoneStage {
-  height: calc(100dvh - 32px);
+  min-height: calc(100dvh - 32px);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 30px;
 }
 
@@ -305,8 +305,7 @@
 }
 
 .mapWrap {
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   padding: 0 14px 8px;
@@ -335,6 +334,51 @@
   font-family: Georgia, "Times New Roman", serif;
   font-size: 18px;
   text-align: right;
+}
+
+.routeListPanel {
+  display: grid;
+  gap: 8px;
+  border: 2px solid #c9a878;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(168, 52, 31, 0.08), transparent 20%),
+    repeating-linear-gradient(0deg, transparent 0 30px, rgba(120, 80, 30, 0.04) 30px 31px),
+    #fdf6e6;
+  padding: 10px;
+}
+
+.routeListWindow {
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.routeListControl {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1.5px dashed #c9a878;
+  border-radius: 999px;
+  background: rgba(255, 250, 240, 0.82);
+  color: #a8341f;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.routeListControl:disabled {
+  opacity: 0.35;
+  color: #7a5a30;
+}
+
+.routeListControl:focus-visible {
+  outline: 4px solid rgba(168, 52, 31, 0.32);
+  outline-offset: 3px;
 }
 
 .schematicMap {
@@ -485,6 +529,39 @@
 
 .stop-future {
   background: #fffaf0;
+}
+
+.routeStopListed {
+  grid-template-columns: 46px minmax(0, 1fr) auto;
+  min-height: 74px;
+  border-radius: 16px;
+  padding: 9px 11px 9px 9px;
+}
+
+.routeStopListed .stopName {
+  font-size: 21px;
+}
+
+.routeStopListed.stop-current,
+.routeStopListed.stopCurrent {
+  min-height: 82px;
+}
+
+.routeStopListed.stop-current .stopName,
+.routeStopListed.stopCurrent .stopName {
+  font-size: 24px;
+}
+
+.stopState {
+  align-self: center;
+  border: 1px dashed currentColor;
+  border-radius: 999px;
+  padding: 5px 8px;
+  font-family: "Courier New", monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
 }
 
 .routeLegend {
@@ -786,6 +863,7 @@
 
 .photoPlaceholder {
   min-height: 108px;
+  border: 0;
   border-radius: 12px;
   display: grid;
   place-items: center;
@@ -793,6 +871,43 @@
     repeating-linear-gradient(135deg, #d8c39a 0 14px, #c9ad7a 14px 28px);
   color: #7a5a30;
   box-shadow: inset 0 0 44px rgba(60, 40, 20, 0.24);
+}
+
+.photoButton {
+  position: relative;
+  width: 100%;
+  min-height: 200px;
+  padding: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.photoButton::after {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(253, 246, 230, 0.72);
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.photoButton:hover {
+  transform: translateY(-2px) rotate(-0.6deg);
+  filter: saturate(1.04);
+  box-shadow: 0 8px 18px rgba(59, 42, 24, 0.26);
+}
+
+.photoButton:focus-visible {
+  outline: 4px solid rgba(168, 52, 31, 0.34);
+  outline-offset: 4px;
+}
+
+.photoButton img {
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
 }
 
 .photoPlaceholder span {
@@ -820,6 +935,125 @@
   text-decoration: underline;
 }
 
+.galleryOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(168, 52, 31, 0.24), transparent 30%),
+    rgba(28, 19, 12, 0.88);
+  backdrop-filter: blur(8px);
+}
+
+.galleryFrame {
+  width: min(100%, 980px);
+  max-height: calc(100dvh - 32px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  border: 2px solid #3b2a18;
+  border-radius: 18px;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 26px, rgba(120, 80, 30, 0.05) 26px 27px),
+    #f0e6d2;
+  box-shadow: 0 18px 0 rgba(59, 42, 24, 0.26), 0 28px 70px rgba(0, 0, 0, 0.42);
+  overflow: hidden;
+}
+
+.galleryToolbar {
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 1fr auto 42px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px dashed #c9a878;
+  padding: 10px 12px 10px 16px;
+}
+
+.galleryToolbar span,
+.galleryToolbar strong,
+.galleryDate {
+  color: #7a5a30;
+  font-family: "Courier New", monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.galleryToolbar span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.galleryToolbar strong {
+  color: #a8341f;
+}
+
+.galleryIconButton,
+.galleryNavButton {
+  display: grid;
+  place-items: center;
+  border: 2px solid #3b2a18;
+  background: #fdf6e6;
+  color: #3b2a18;
+  box-shadow: 0 3px 0 #3b2a18;
+}
+
+.galleryIconButton {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+}
+
+.galleryImageWrap {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  background: #17120d;
+}
+
+.galleryImage {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100dvh - 142px);
+  object-fit: contain;
+}
+
+.galleryNavButton {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: 48px;
+  height: 58px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+}
+
+.galleryPrevButton {
+  left: 12px;
+}
+
+.galleryNextButton {
+  right: 12px;
+}
+
+.galleryIconButton:focus-visible,
+.galleryNavButton:focus-visible {
+  outline: 4px solid rgba(253, 246, 230, 0.36);
+  outline-offset: 4px;
+}
+
+.galleryDate {
+  margin: 0;
+  padding: 12px 16px 14px;
+  text-align: center;
+}
+
 @keyframes pulse {
   0%,
   100% {
@@ -845,5 +1079,10 @@
 
   .cityDetail {
     height: 880px;
+  }
+
+  .photoButton,
+  .photoButton img {
+    min-height: 260px;
   }
 }

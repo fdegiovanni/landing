@@ -10,7 +10,6 @@ import {
 function makePhoto(id, time, width, height) {
   return {
     id,
-    baseUrl: `https://example.com/${id}`,
     mediaMetadata: { creationTime: time, width: String(width), height: String(height) },
   }
 }

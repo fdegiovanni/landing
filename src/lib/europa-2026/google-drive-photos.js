@@ -1,7 +1,20 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.buildDrivePhotoQuery = buildDrivePhotoQuery;
+exports.downloadPhoto = downloadPhoto;
+exports.getPhotosForDate = getPhotosForDate;
 exports.toPhotoMetadata = toPhotoMetadata;
+
+const { google } = require("googleapis")
+
+function getAuthClient() {
+  const client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET
+  )
+  client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN })
+  return client
+}
 
 function nextDayISO(dateISO) {
   const date = new Date(`${dateISO}T00:00:00Z`)
@@ -52,4 +65,52 @@ function toPhotoMetadata(file) {
       height: String(file.imageMediaMetadata?.height ?? 0),
     },
   }
+}
+
+async function getPhotosForDate(dateISO) {
+  const folderId = process.env.GOOGLE_DRIVE_PHOTOS_FOLDER_ID
+  if (!folderId) throw new Error("Missing GOOGLE_DRIVE_PHOTOS_FOLDER_ID")
+
+  const auth = getAuthClient()
+  const drive = google.drive({ version: "v3", auth })
+  const query = buildDrivePhotoQuery(folderId, dateISO)
+  const photos = []
+  let pageToken
+
+  do {
+    const response = await drive.files.list({
+      q: query,
+      spaces: "drive",
+      pageSize: 100,
+      pageToken,
+      orderBy: "createdTime",
+      fields:
+        "nextPageToken, files(id, name, createdTime, imageMediaMetadata(width, height, time))",
+    })
+
+    for (const file of response.data.files ?? []) {
+      photos.push(toPhotoMetadata(file))
+    }
+    pageToken = response.data.nextPageToken ?? undefined
+  } while (pageToken)
+
+  return photos
+}
+
+async function downloadPhoto(photoId) {
+  const auth = getAuthClient()
+  const { token } = await auth.getAccessToken()
+  if (!token) throw new Error("Failed to get Google Drive access token")
+
+  const response = await fetch(
+    `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(photoId)}?alt=media`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  )
+
+  if (!response.ok) {
+    const body = await response.text()
+    throw new Error(`Google Drive download ${response.status}: ${body}`)
+  }
+
+  return response.arrayBuffer()
 }

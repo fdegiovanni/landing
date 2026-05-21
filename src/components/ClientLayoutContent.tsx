@@ -13,13 +13,15 @@ type Props = {
 export default function ClientLayoutContent({ children }: Props) {
   const pathname = usePathname();
   const isLinksPage = pathname.startsWith('/links');
+  const isEuropaJourneyPage = pathname.startsWith('/europa');
+  const hideChrome = isLinksPage || isEuropaJourneyPage;
 
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
       <div className="flex min-h-screen flex-col">
-        {!isLinksPage && <Header />}
+        {!hideChrome && <Header />}
         <main className="flex-1">{children}</main>
-        {!isLinksPage && <Footer />}
+        {!hideChrome && <Footer />}
       </div>
     </ThemeProvider>
   );

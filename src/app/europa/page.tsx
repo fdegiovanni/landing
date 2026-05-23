@@ -12,6 +12,7 @@ import {
   type TravelerProfile,
   type TripCity,
   type TripConnection,
+  type TripWeather,
 } from "@/data/europa-2026"
 import { daysBetween, getTripState } from "@/lib/europa-2026/trip-state"
 import { calculateTripProgressStats } from "@/lib/europa-2026/trip-progress"
@@ -22,6 +23,7 @@ type StoredSession = {
   expiresAt: number
 }
 type CityPhoto = { public_url: string; taken_date: string; width: number; height: number }
+type LiveWeather = TripWeather & { source?: "open-meteo" | "fallback" }
 type TripState =
   | { phase: "before"; dayOfTrip: 0; daysUntil: number }
   | { phase: "in-city"; dayOfTrip: number; city: TripCity }
@@ -51,6 +53,38 @@ function localTime(city: TripCity) {
     minute: "2-digit",
     timeZone: city.timezone,
   }).format(new Date())
+}
+
+function useCityWeather(city: TripCity | null) {
+  const [weather, setWeather] = useState<LiveWeather | null>(city ? tripWeather[city.id] ?? null : null)
+
+  useEffect(() => {
+    if (!city) {
+      setWeather(null)
+      return
+    }
+
+    let cancelled = false
+    setWeather(tripWeather[city.id] ?? null)
+
+    fetch(`/api/europa/weather?city=${encodeURIComponent(city.id)}`)
+      .then((response) => {
+        if (!response.ok) throw new Error(`Weather request failed: ${response.status}`)
+        return response.json() as Promise<LiveWeather>
+      })
+      .then((data) => {
+        if (!cancelled) setWeather(data)
+      })
+      .catch(() => {
+        if (!cancelled) setWeather(tripWeather[city.id] ?? null)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [city])
+
+  return weather
 }
 
 function transportLabel(transport?: TripConnection["transport"]) {
@@ -242,6 +276,9 @@ export default function Europa2026Page() {
 }
 
 function StatusBanner({ state, onCity }: { state: TripState; onCity: (city: TripCity) => void }) {
+  const currentCity = state.phase === "in-city" ? state.city : null
+  const liveWeather = useCityWeather(currentCity)
+
   if (state.phase === "before") {
     return (
       <section className={styles.statusDark}>
@@ -291,7 +328,7 @@ function StatusBanner({ state, onCity }: { state: TripState; onCity: (city: Trip
     )
   }
 
-  const weather = tripWeather[state.city.id]
+  const weather = liveWeather ?? tripWeather[state.city.id]
 
   return (
     <button className={styles.statusCardButton} onClick={() => onCity(state.city)}>
@@ -426,7 +463,7 @@ function TripStats({ date, state }: { date: string; state: TripState }) {
 }
 
 function CityDetail({ city, onBack }: { city: TripCity; onBack: () => void }) {
-  const weather = tripWeather[city.id]
+  const weather = useCityWeather(city) ?? tripWeather[city.id]
   const stopNumber = publicCities.findIndex((item) => item.id === city.id) + 1
   const [photos, setPhotos] = useState<CityPhoto[]>([])
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null)

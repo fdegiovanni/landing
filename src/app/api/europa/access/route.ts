@@ -30,7 +30,7 @@ const TRAVELERS: Array<Traveler & { dniHash: string }> = [
     dniHash: "cce2a0889fcc8d839b3ac967daad51fda304509432a74d8d8119c76d453d46bb",
     displayName: "Brenda",
     alias: "Bren",
-    emoji: "🌷",
+    emoji: "😀",
   },
   {
     dniHash: "465e18d0238feb718b4940046e9a29d1c5cbc25c163dd75fd5e0e84b47d348e4",

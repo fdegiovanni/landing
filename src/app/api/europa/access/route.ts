@@ -69,7 +69,7 @@ const TRAVELERS: Array<Traveler & { dniHash: string }> = [
     emoji: "🤩",
   },
 {
-    dniHash: "a7a412f6c509c84e17d93e9bdf1942ca7a99fd31b0c52ff4ea6d6af6e15f3e0d",
+    dniHash: "4faf37c2972dc98d4c8a24c66033777a0d582b3156e80da59eec67ad1f20b80f",
     displayName: "Abi",
     alias: "Abi",
     emoji: "😽",

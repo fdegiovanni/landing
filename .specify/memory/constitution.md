@@ -1,3 +1,4 @@
+
 # fdegiovanni Landing Constitution
 
 ## Core Principles

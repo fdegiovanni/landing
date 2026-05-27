@@ -1,0 +1,76 @@
+- generic [ref=e1]:
+  - main [ref=e3]:
+    - main [ref=e4]:
+      - generic [ref=e64]:
+        - generic [ref=e65]:
+          - generic [ref=e66]:
+            - paragraph [ref=e67]: hola Fede!
+            - heading "Mi viaje por Europa" [level=1] [ref=e68]
+          - generic [ref=e69]:
+            - button "Salir" [ref=e70]
+            - generic [ref=e71]:
+              - text: DIA
+              - strong [ref=e72]: "11"
+              - generic [ref=e73]: / 53
+        - button "🥐 hoy estoy en Paris 🕐 08:53 p. m. · ☁️ 19° · Nublado ›" [ref=e74]:
+          - generic [ref=e75]: 🥐
+          - generic [ref=e76]:
+            - text: hoy estoy en
+            - strong [ref=e77]: Paris
+            - generic [ref=e78]: 🕐 08:53 p. m. · ☁️ 19° · Nublado
+          - generic [ref=e79]: ›
+        - region "Mapa del viaje Europa 2026" [ref=e18]:
+          - generic [ref=e19]:
+            - generic [ref=e20]: Ruta clara
+            - strong [ref=e21]: "Ahora: Paris"
+          - generic [ref=e22]:
+            - button "Subir lista de paradas" [ref=e23]:
+              - img [ref=e24]
+              - generic [ref=e26]: anteriores
+            - generic [ref=e27]:
+              - 'button "Ver parada 2: Londres" [ref=e34]':
+                - generic [ref=e35]: "2"
+                - generic [ref=e36]:
+                  - generic [ref=e37]: Londres
+                  - generic [ref=e38]: GB · 1 jun
+                - generic [ref=e39]: Falta
+              - 'button "Ver parada 3: Gante" [ref=e40]':
+                - generic [ref=e41]: "3"
+                - generic [ref=e42]:
+                  - generic [ref=e43]: Gante
+                  - generic [ref=e44]: BE · 6 jun
+                - generic [ref=e45]: Falta
+              - 'button "Ver parada 4: Bruselas" [ref=e46]':
+                - generic [ref=e47]: "4"
+                - generic [ref=e48]:
+                  - generic [ref=e49]: Bruselas
+                  - generic [ref=e50]: BE · 8 jun
+                - generic [ref=e51]: Falta
+              - 'button "Ver parada 5: Brujas" [ref=e98]':
+                - generic [ref=e99]: "5"
+                - generic [ref=e100]:
+                  - generic [ref=e101]: Brujas
+                  - generic [ref=e102]: BE · 9 jun
+                - generic [ref=e103]: Falta
+            - button "Bajar lista de paradas" [active] [ref=e52]:
+              - generic [ref=e53]: siguientes
+              - img [ref=e54]
+          - generic [ref=e56]:
+            - generic [ref=e57]: Visitado
+            - generic [ref=e59]: Ahora
+            - generic [ref=e61]: Falta
+          - paragraph [ref=e63]: Toca una parada para ver fotos, clima y plan.
+        - generic [ref=e80]:
+          - generic [ref=e81]:
+            - strong [ref=e82]: "1.503"
+            - text: km
+          - generic [ref=e83]:
+            - strong [ref=e84]: "0"
+            - text: paises
+          - generic [ref=e85]:
+            - strong [ref=e86]: "0"
+            - text: ciudades
+          - paragraph [ref=e87]: "Hoy: tres mapas abiertos, dos cafes y una felicidad enorme."
+  - alert [ref=e88]
+  - button "Open Next.js Dev Tools" [ref=e94] [cursor=pointer]:
+    - img [ref=e95]

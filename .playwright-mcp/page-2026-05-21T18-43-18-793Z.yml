@@ -1,0 +1,56 @@
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - main [ref=e4]:
+      - generic [ref=e5]:
+        - generic [ref=e6]:
+          - generic [ref=e7]:
+            - paragraph [ref=e8]: hola Fede!
+            - heading "Mi viaje por Europa" [level=1] [ref=e9]
+          - generic [ref=e10]:
+            - button "Salir" [ref=e11]
+            - generic [ref=e12]:
+              - text: DIA
+              - strong [ref=e13]: "11"
+              - generic [ref=e14]: / 53
+        - button "🥐 hoy estoy en Paris 🕐 08:43 p. m. · ☁️ 19° · Nublado ›" [ref=e15]:
+          - generic [ref=e16]: 🥐
+          - generic [ref=e17]:
+            - text: hoy estoy en
+            - strong [ref=e18]: Paris
+            - generic [ref=e19]: 🕐 08:43 p. m. · ☁️ 19° · Nublado
+          - generic [ref=e20]: ›
+        - region "Mapa del viaje Europa 2026" [ref=e21]:
+          - generic [ref=e22]:
+            - generic [ref=e23]: Ruta clara
+            - strong [ref=e24]: "Ahora: Paris"
+          - generic [ref=e25]:
+            - button "Parada anterior" [disabled] [ref=e26]:
+              - img [ref=e27]
+            - generic [ref=e29]:
+              - 'button "Ver parada 1: Paris" [ref=e30]':
+                - generic [ref=e31]: "1"
+                - generic [ref=e32]:
+                  - generic [ref=e33]: Paris
+                  - generic [ref=e34]: FR · 11 may
+              - generic [ref=e35]:
+                - generic [ref=e36]: 1 de 16
+                - strong [ref=e37]: Ahora
+            - button "Parada siguiente" [ref=e38]:
+              - img [ref=e39]
+          - generic [ref=e41]:
+            - generic [ref=e42]: Visitado
+            - generic [ref=e44]: Ahora
+            - generic [ref=e46]: Falta
+          - paragraph [ref=e48]: Usa las flechas y toca la parada para ver fotos, clima y plan.
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - strong [ref=e51]: "1.503"
+            - text: km
+          - generic [ref=e52]:
+            - strong [ref=e53]: "0"
+            - text: paises
+          - generic [ref=e54]:
+            - strong [ref=e55]: "0"
+            - text: ciudades
+          - paragraph [ref=e56]: "Hoy: tres mapas abiertos, dos cafes y una felicidad enorme."
+  - alert [ref=e57]

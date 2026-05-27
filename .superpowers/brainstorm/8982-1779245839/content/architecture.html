@@ -1,0 +1,123 @@
+<h2>Diseño completo — Google Photos → Europa page</h2>
+<p class="subtitle">Tres fases: setup único antes del viaje, sync automático durante, y display en la página.</p>
+
+<div class="section">
+  <h3>Fase 1 — Setup (una vez, antes del viaje)</h3>
+  <div class="mockup">
+    <div class="mockup-header">scripts/setup-google-photos-auth.ts — corre localmente una sola vez</div>
+    <div class="mockup-body" style="font-family:monospace;font-size:12px;line-height:2;padding:12px">
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <div style="color:#888;margin-bottom:4px">1. Crear proyecto en Google Cloud</div>
+          <div style="color:#888;margin-bottom:4px">2. Habilitar Photos Library API</div>
+          <div style="color:#888;margin-bottom:4px">3. Crear OAuth2 credentials</div>
+          <div style="color:#888;margin-bottom:4px">4. Correr script → abre browser</div>
+          <div style="color:#888;margin-bottom:4px">5. Autorizar acceso a tus fotos</div>
+          <div style="color:#4caf50;margin-bottom:4px">✅ Script guarda REFRESH_TOKEN</div>
+        </div>
+        <div style="flex:1;min-width:200px;background:#f5f5f5;border-radius:6px;padding:10px">
+          <div style="color:#555;font-size:11px">Vercel env vars (una vez):</div>
+          <div style="color:#4285f4">GOOGLE_CLIENT_ID</div>
+          <div style="color:#4285f4">GOOGLE_CLIENT_SECRET</div>
+          <div style="color:#4285f4">GOOGLE_REFRESH_TOKEN</div>
+          <div style="color:#3ecf8e">SYNC_SECRET (para proteger el endpoint)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Fase 2 — Sync automático (cada noche durante el viaje)</h3>
+  <div class="mockup">
+    <div class="mockup-header">Flujo del cron — medianoche hora local de cada ciudad</div>
+    <div class="mockup-body" style="padding:12px">
+      <div style="display:flex;align-items:stretch;gap:8px;flex-wrap:wrap;font-size:12px;font-family:monospace">
+
+        <div style="background:#e8f0fe;border-radius:6px;padding:10px;flex:1;min-width:120px">
+          <div style="color:#1a73e8;font-weight:bold;margin-bottom:6px">⏰ Vercel Cron</div>
+          <div style="color:#555">Todos los días a las 23:00</div>
+          <div style="color:#555">GET /api/europa/sync-photos</div>
+          <div style="color:#555">+ SYNC_SECRET header</div>
+        </div>
+
+        <div style="display:flex;align-items:center;color:#888">→</div>
+
+        <div style="background:#fce8e6;border-radius:6px;padding:10px;flex:2;min-width:200px">
+          <div style="color:#c5221f;font-weight:bold;margin-bottom:6px">📷 Google Photos API</div>
+          <div style="color:#555">1. Detecta ciudad actual por fecha</div>
+          <div style="color:#555">2. Fetch fotos del día (mediaItems:search)</div>
+          <div style="color:#555">3. Score por metadata:</div>
+          <div style="color:#555;padding-left:12px">• Elimina duplicados (&lt;5seg)</div>
+          <div style="color:#555;padding-left:12px">• Prioriza mayor resolución</div>
+          <div style="color:#555;padding-left:12px">• Distribuye por hora del día</div>
+          <div style="color:#555">4. Selecciona top 10</div>
+        </div>
+
+        <div style="display:flex;align-items:center;color:#888">→</div>
+
+        <div style="background:#e6f4ea;border-radius:6px;padding:10px;flex:2;min-width:200px">
+          <div style="color:#1e8e3e;font-weight:bold;margin-bottom:6px">🗄 Supabase</div>
+          <div style="color:#555">5. Descarga imágenes → Storage</div>
+          <div style="color:#555">   /europa-photos/paris/2026-06-12/</div>
+          <div style="color:#555">6. Guarda metadata en tabla:</div>
+          <div style="color:#555;padding-left:12px">city_slug, taken_date</div>
+          <div style="color:#555;padding-left:12px">public_url, width, height</div>
+          <div style="color:#555;padding-left:12px">display_order, score</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Fase 3 — Display en la página</h3>
+  <div class="mockup">
+    <div class="mockup-header">Sección fotos en la vista de ciudad (Europa page)</div>
+    <div class="mockup-body" style="padding:12px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <div style="flex:1;min-width:220px">
+          <div style="background:#fff3e0;border-radius:8px;padding:12px;font-size:12px;font-family:monospace">
+            <div style="color:#e65100;font-weight:bold;margin-bottom:6px">Europa page (client component)</div>
+            <div style="color:#555">const { data: photos } = useSWR(</div>
+            <div style="color:#555">  `/api/europa/photos?city=${city.slug}`</div>
+            <div style="color:#555">)</div>
+            <div style="color:#555;margin-top:6px">→ grid de 10 fotos</div>
+            <div style="color:#555">→ estilo vintage (passport)</div>
+            <div style="color:#555">→ lazy load con blur placeholder</div>
+          </div>
+        </div>
+        <div style="flex:1;min-width:220px">
+          <div style="font-size:12px;color:#555;margin-bottom:8px">Vista mockup en la página:</div>
+          <div style="border:2px solid #c8a96e;border-radius:8px;padding:10px;background:#fdf6e3">
+            <div style="font-size:11px;color:#8b6914;text-align:center;margin-bottom:8px;font-family:Georgia,serif">✦ Momentos del día ✦</div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+              <div style="background:#e8d5b7;aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px">🗼</div>
+              <div style="background:#e8d5b7;aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px">☕</div>
+              <div style="background:#e8d5b7;aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px">🌅</div>
+              <div style="background:#e8d5b7;aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px">🍝</div>
+              <div style="background:#e8d5b7;aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px">🚶</div>
+              <div style="background:#e8d5b7;aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:18px">🌃</div>
+            </div>
+            <div style="font-size:10px;color:#8b6914;text-align:center;margin-top:6px;font-family:monospace">París · 12 jun 2026 · 10 fotos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Archivos nuevos / modificados</h3>
+  <div style="font-family:monospace;font-size:12px;background:#f8f9fa;border-radius:8px;padding:14px;line-height:2">
+    <div><span style="color:#4caf50">+</span> <span style="color:#333">scripts/setup-google-photos-auth.ts</span> <span style="color:#888">← corre una vez</span></div>
+    <div><span style="color:#4caf50">+</span> <span style="color:#333">src/lib/europa-2026/google-photos.ts</span> <span style="color:#888">← API client</span></div>
+    <div><span style="color:#4caf50">+</span> <span style="color:#333">src/lib/europa-2026/photo-scoring.ts</span> <span style="color:#888">← metadata scoring</span></div>
+    <div><span style="color:#4caf50">+</span> <span style="color:#333">src/app/api/europa/sync-photos/route.ts</span> <span style="color:#888">← cron endpoint</span></div>
+    <div><span style="color:#4caf50">+</span> <span style="color:#333">src/app/api/europa/photos/route.ts</span> <span style="color:#888">← read endpoint</span></div>
+    <div><span style="color:#2196f3">~</span> <span style="color:#333">src/app/europa/page.tsx</span> <span style="color:#888">← agrega sección fotos</span></div>
+    <div><span style="color:#2196f3">~</span> <span style="color:#333">vercel.json</span> <span style="color:#888">← agrega cron config</span></div>
+    <div><span style="color:#4caf50">+</span> <span style="color:#333">supabase/migrations/001_europa_photos.sql</span></div>
+  </div>
+</div>

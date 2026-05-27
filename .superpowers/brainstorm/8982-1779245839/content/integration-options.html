@@ -1,0 +1,87 @@
+<h2>Opciones de integración con Google Photos</h2>
+<p class="subtitle">Tres caminos para conectar tu Next.js app con Google Photos — distintos niveles de complejidad y control.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8f9ff;padding:16px;border-radius:8px 8px 0 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="background:#4285f4;color:white;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:bold">googleapis (npm)</span>
+        <span style="background:#eee;color:#333;padding:3px 10px;border-radius:4px;font-size:11px">OAuth2 manual</span>
+      </div>
+      <div style="font-family:monospace;font-size:11px;background:white;border:1px solid #e0e0e0;border-radius:6px;padding:10px;line-height:1.8">
+        <span style="color:#888">// setup una vez:</span><br>
+        <span style="color:#4285f4">GOOGLE_REFRESH_TOKEN</span>=xxx → Vercel env var<br>
+        <span style="color:#888">// en el cron diario:</span><br>
+        <span style="color:#333">oauth2Client.setCredentials({refresh_token})</span><br>
+        <span style="color:#333">fetch photos by date → score → Supabase</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — googleapis directo (recomendado)</h3>
+      <p>Usás el paquete oficial de Google. OAuth2 se configura una vez: generás el refresh token antes del viaje y lo guardás como env var en Vercel.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Sin dependencias externas</li><li>Control total</li><li>Gratis</li><li>Código en el mismo repo</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Hay que generar el refresh token manualmente (10 min de setup)</li><li>Un poco más de código</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f0fff8;padding:16px;border-radius:8px 8px 0 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="background:#00c48c;color:white;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:bold">Composio</span>
+        <span style="background:#eee;color:#333;padding:3px 10px;border-radius:4px;font-size:11px">OAuth gestionado</span>
+        <span style="background:#fef3c7;color:#92400e;padding:3px 10px;border-radius:4px;font-size:11px">Free tier</span>
+      </div>
+      <div style="font-family:monospace;font-size:11px;background:white;border:1px solid #e0e0e0;border-radius:6px;padding:10px;line-height:1.8">
+        <span style="color:#888">// Composio maneja todo el OAuth por vos:</span><br>
+        <span style="color:#00c48c">composio.tools.googlephotos.searchMedia({</span><br>
+        <span style="color:#333">  dateFilter: { startDate, endDate }</span><br>
+        <span style="color:#00c48c">})</span><br>
+        <span style="color:#888">// 13 tools listos, sin manejar tokens</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Composio (OAuth gestionado)</h3>
+      <p>Composio maneja OAuth, refresh tokens y scopes. Tiene 13 acciones listas para Google Photos. El setup es más simple, pero agrega dependencia a un servicio externo.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>No manejás refresh tokens</li><li>Setup muy rápido</li><li>13 tools listos</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Dependencia externa (si Composio falla, falla tu app)</li><li>Tus fotos pasan por sus servidores</li><li>Pricing puede cambiar</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fffbf0;padding:16px;border-radius:8px 8px 0 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <span style="background:#f59e0b;color:white;padding:3px 10px;border-radius:4px;font-size:12px;font-weight:bold">google-photos-mcp</span>
+        <span style="background:#eee;color:#333;padding:3px 10px;border-radius:4px;font-size:11px">Open source</span>
+      </div>
+      <div style="font-family:monospace;font-size:11px;background:white;border:1px solid #e0e0e0;border-radius:6px;padding:10px;line-height:1.8">
+        <span style="color:#888">// Corre como servidor local MCP</span><br>
+        <span style="color:#888">// savethepolarbears/google-photos-mcp</span><br>
+        <span style="color:#f59e0b">✅ Picker API (post-deprecación Mar 2025)</span><br>
+        <span style="color:#f59e0b">✅ Search by date, location, category</span><br>
+        <span style="color:#888">⚠️ Diseñado para uso local (Claude Desktop)</span><br>
+        <span style="color:#888">⚠️ No corre directo en Vercel</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — google-photos-mcp (referencia)</h3>
+      <p>MCP server open source que ya implementa la Picker API y la Library API. No corre en Vercel, pero su código TypeScript es perfecta referencia para implementar el API route propio.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Código TypeScript de referencia de calidad</li><li>Ya maneja la post-deprecación de scopes (Mar 2025)</li><li>Podés usar su patrón OAuth</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>No se embebe en Vercel directamente</li><li>Solo sirve como referencia</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="background:#fef9ec;border:1px solid #f59e0b;border-radius:8px;padding:12px;margin-top:16px">
+  <strong>⚠️ Nota importante — Deprecación de scopes (Marzo 2025)</strong><br>
+  <span style="font-size:13px">Google deprecó algunos scopes del Library API. Para uso personal (tu propia cuenta), el scope <code>photoslibrary.readonly</code> sigue funcionando. La Opción A con <code>googleapis</code> es la ruta más directa y segura.</span>
+</div>
+
+<p class="subtitle" style="margin-top:12px">💡 <strong>Recomendación:</strong> Opción A — <code>googleapis</code> directo. Control total, sin dependencias externas, costo $0. El código de <code>google-photos-mcp</code> (C) sirve como referencia de implementación.</p>

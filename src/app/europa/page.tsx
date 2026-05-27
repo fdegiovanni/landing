@@ -201,7 +201,7 @@ export default function Europa2026Page() {
       <main className={styles.shell}>
         <section className={styles.passportCard} aria-label="Acceso privado Europa 2026">
           <div className={styles.stamp}>POR AVION<br />2026</div>
-          <p className={styles.script}>de fede, con cariño</p>
+          <p className={styles.script}>de fede y luci, con cariño</p>
           <h1 className={styles.welcomeTitle}>Europa <span>2026</span></h1>
           <p className={styles.kicker}>28 mayo - 3 julio · 16 ciudades</p>
           <p className={styles.prompt}>Hola... quien sos?</p>

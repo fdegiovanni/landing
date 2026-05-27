@@ -1,0 +1,55 @@
+- generic [active] [ref=e1]:
+  - main [ref=e3]:
+    - main [ref=e4]:
+      - article [ref=e132]:
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: 🥐
+            - strong [ref=e136]: Paris
+          - img "Paris, Francia" [ref=e137]
+          - button "Volver al mapa" [ref=e138]: ←
+          - generic [ref=e139]: FR · Francia
+        - generic [ref=e140]:
+          - paragraph [ref=e141]: parada 1 de 16
+          - heading "Paris" [level=1] [ref=e142]
+          - paragraph [ref=e143]: 11 may → 1 jun
+          - paragraph [ref=e144]: "La Ciudad de la Luz: Torre Eiffel, museos, cafecitos y caminar hasta que no den los pies."
+          - generic [ref=e145]:
+            - generic [ref=e146]:
+              - generic [ref=e147]: hora local
+              - strong [ref=e148]: 08:04 p. m.
+            - generic [ref=e149]:
+              - generic [ref=e150]: clima ahora
+              - strong [ref=e151]: ☁️ 19°
+          - generic [ref=e152]:
+            - heading "plan aca" [level=2] [ref=e153]
+            - paragraph [ref=e154]: Arribo desde Madrid cerca de las 15 hs.
+          - generic [ref=e155]:
+            - heading "que visitar" [level=2] [ref=e156]
+            - generic [ref=e157]:
+              - generic [ref=e158]: Torre Eiffel
+              - generic [ref=e159]: Louvre
+              - generic [ref=e160]: Montmartre
+              - generic [ref=e161]: Marais
+          - generic [ref=e162]:
+            - heading "que comer" [level=2] [ref=e163]
+            - generic [ref=e164]:
+              - generic [ref=e165]: Croissant
+              - generic [ref=e166]: Macarons
+              - generic [ref=e167]: Steak frites
+          - generic [ref=e168]:
+            - generic [ref=e169]: sabias que...
+            - paragraph [ref=e170]: El Louvre fue palacio real antes de ser museo.
+          - generic [ref=e171]:
+            - heading "fotos del cron" [level=2] [ref=e172]
+            - generic [ref=e173]:
+              - button "Ver foto 1 de Paris" [ref=e174]:
+                - img "Paris · foto 1" [ref=e175]
+              - button "Ver foto 2 de Paris" [ref=e176]:
+                - img "Paris · foto 2" [ref=e177]
+            - paragraph [ref=e178]: 2026-05-21
+          - 'link "Imagen inicial: Wikimedia Commons" [ref=e179] [cursor=pointer]':
+            - /url: https://commons.wikimedia.org/wiki/File:Eiffel_Tower_from_the_Tour_Montparnasse_3,_Paris_May_2014.jpg
+  - alert [ref=e122]
+  - button "Open Next.js Dev Tools" [ref=e128] [cursor=pointer]:
+    - img [ref=e129]

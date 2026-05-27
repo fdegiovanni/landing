@@ -1,0 +1,94 @@
+<h2>3 formas de mostrar tus fotos automáticamente</h2>
+<p class="subtitle">Todas usan Google Photos API con OAuth configurado una vez. La diferencia está en cómo y cuándo las fotos llegan a tu página.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f0f4ff;padding:16px;font-family:monospace;font-size:12px;line-height:1.7;border-radius:8px 8px 0 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="background:#4285f4;color:white;padding:2px 8px;border-radius:4px;font-size:11px">📸 Google Photos</span>
+        <span style="color:#666">→</span>
+        <span style="background:#3ecf8e;color:white;padding:2px 8px;border-radius:4px;font-size:11px">⏰ Cron diario</span>
+        <span style="color:#666">→</span>
+        <span style="background:#6366f1;color:white;padding:2px 8px;border-radius:4px;font-size:11px">🗄 Supabase</span>
+        <span style="color:#666">→</span>
+        <span style="background:#e97627;color:white;padding:2px 8px;border-radius:4px;font-size:11px">🌍 Page</span>
+      </div>
+      <div style="background:white;border:1px solid #e0e0e0;border-radius:6px;padding:10px;margin-top:4px">
+        <div style="color:#888;font-size:11px;margin-bottom:6px">Vercel Cron — cada noche a las 23:00</div>
+        <div style="color:#333">GET /api/sync-photos</div>
+        <div style="color:#4285f4;margin-left:12px">→ lee fotos del día desde Google Photos</div>
+        <div style="color:#3ecf8e;margin-left:12px">→ guarda URLs en Supabase</div>
+        <div style="color:#333;margin-top:6px">Europa page</div>
+        <div style="color:#6366f1;margin-left:12px">→ lee de Supabase (rápido ⚡)</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Sync diario con caché en Supabase</h3>
+      <p>Un cron corre cada noche y guarda las fotos del día en tu base de datos. La página las carga instantáneamente desde Supabase.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Página carga rápido</li><li>Funciona si Google API está caída</li><li>Fácil de extender (captions, likes)</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Fotos aparecen con hasta ~24h de delay</li><li>Más setup inicial</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f0fff4;padding:16px;font-family:monospace;font-size:12px;line-height:1.7;border-radius:8px 8px 0 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="background:#4285f4;color:white;padding:2px 8px;border-radius:4px;font-size:11px">📸 Google Photos</span>
+        <span style="color:#666">→</span>
+        <span style="background:#e97627;color:white;padding:2px 8px;border-radius:4px;font-size:11px">🌍 API Route</span>
+        <span style="color:#666">→</span>
+        <span style="background:#e97627;color:white;padding:2px 8px;border-radius:4px;font-size:11px">🌍 Page</span>
+      </div>
+      <div style="background:white;border:1px solid #e0e0e0;border-radius:6px;padding:10px;margin-top:4px">
+        <div style="color:#888;font-size:11px;margin-bottom:6px">Cuando alguien abre la página de la ciudad</div>
+        <div style="color:#333">GET /api/photos?city=paris&date=2026-06-12</div>
+        <div style="color:#4285f4;margin-left:12px">→ llama a Google Photos API live</div>
+        <div style="color:#e97627;margin-left:12px">→ retorna fotos al browser</div>
+        <div style="color:#888;margin-top:6px;font-size:11px">⚡ Next.js caching puede mitigar latencia</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Fetch directo a Google Photos (sin caché)</h3>
+      <p>Cada vez que alguien abre la página, se consulta Google Photos en tiempo real. Sin base de datos, sin sync.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Fotos aparecen al instante (sin delay)</li><li>Setup más simple</li><li>Sin Supabase table extra</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Más lento (depende de Google API)</li><li>Más caro en tokens de API</li><li>Fragil si Google API tiene issues</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#fffbf0;padding:16px;font-family:monospace;font-size:12px;line-height:1.7;border-radius:8px 8px 0 0">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="background:#4285f4;color:white;padding:2px 8px;border-radius:4px;font-size:11px">📸 Google Photos</span>
+        <span style="color:#666">→</span>
+        <span style="background:#fbbc04;color:#333;padding:2px 8px;border-radius:4px;font-size:11px">📂 Álbum del viaje</span>
+        <span style="color:#666">→</span>
+        <span style="background:#3ecf8e;color:white;padding:2px 8px;border-radius:4px;font-size:11px">⏰ Cron + IA</span>
+        <span style="color:#666">→</span>
+        <span style="background:#e97627;color:white;padding:2px 8px;border-radius:4px;font-size:11px">🌍 Page</span>
+      </div>
+      <div style="background:white;border:1px solid #e0e0e0;border-radius:6px;padding:10px;margin-top:4px">
+        <div style="color:#888;font-size:11px;margin-bottom:6px">Google Photos tiene auto-álbumes por viaje ✨</div>
+        <div style="color:#fbbc04;margin-left:0px">🔸 Google Photos crea álbum automático</div>
+        <div style="color:#333;margin-left:0px">  → App lee ese álbum filtrado por fecha</div>
+        <div style="color:#3ecf8e;margin-left:0px">  → Vision API / scoring selecciona mejores 10</div>
+        <div style="color:#e97627;margin-left:0px">  → Se muestran en la página</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Álbum automático + selección inteligente con IA</h3>
+      <p>Google Photos agrupa fotos por viaje automáticamente. La app lee ese álbum y usa Vision API o scoring básico (nitidez, no duplicados) para elegir las mejores 10.</p>
+      <div class="pros-cons" style="margin-top:8px">
+        <div class="pros"><h4>Pros</h4><ul><li>Selección de "las mejores" fotos</li><li>Cero trabajo manual</li><li>Experiencia más curada sin curar</li></ul></div>
+        <div class="cons"><h4>Contras</h4><ul><li>Más complejo de implementar</li><li>Costo extra (Vision API)</li><li>IA puede equivocarse en selección</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px">💡 <strong>Mi recomendación:</strong> Opción A — simple, confiable, y la página carga rápido. La Opción B es un buen segundo si querés fotos en tiempo real. La C es la más "wow" pero más compleja.</p>

@@ -9,3 +9,25 @@ test("allows Brenda to access the Europa journey", () => {
   assert.match(routeSource, /displayName:\s*"Brenda"/)
   assert.match(routeSource, /alias:\s*"Bren"/)
 })
+
+test("allows Lucia's family to access the Europa journey", () => {
+  assert.match(routeSource, /cdbad045874a3ce6ef98e6e2e89e03995962e77e5ac3539ca999592c009dd05a/)
+  assert.match(routeSource, /displayName:\s*"Alicia"/)
+  assert.match(routeSource, /alias:\s*"Mama de Lucia"/)
+  assert.match(routeSource, /emoji:\s*"💐"/)
+
+  assert.match(routeSource, /25f55638c8d8638888423f0c726706da546b1ef2368074b846f91fc0ee8affb3/)
+  assert.match(routeSource, /displayName:\s*"Sofia"/)
+  assert.match(routeSource, /alias:\s*"Hermana de Lucia"/)
+  assert.match(routeSource, /emoji:\s*"👯"/)
+
+  assert.match(routeSource, /05642d87347fbaa46c52550327cf89ad055d5783cd1e112628eefa2fe5daafef/)
+  assert.match(routeSource, /displayName:\s*"Vicky"/)
+  assert.match(routeSource, /alias:\s*"Hermana de Luci"/)
+  assert.match(routeSource, /emoji:\s*"👯"/)
+
+  assert.match(routeSource, /aff81cc60a51837cf70e650668ff3f0fee229009049b3aa332baf046a5586790/)
+  assert.match(routeSource, /displayName:\s*"Flori"/)
+  assert.match(routeSource, /alias:\s*"Hermana de Luci"/)
+  assert.match(routeSource, /emoji:\s*"👯"/)
+})

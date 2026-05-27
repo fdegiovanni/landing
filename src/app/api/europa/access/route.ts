@@ -38,6 +38,30 @@ const TRAVELERS: Array<Traveler & { dniHash: string }> = [
     alias: "Leonardo",
     emoji: "🎒",
   },
+  {
+    dniHash: "cdbad045874a3ce6ef98e6e2e89e03995962e77e5ac3539ca999592c009dd05a",
+    displayName: "Alicia",
+    alias: "Mama de Lucia",
+    emoji: "💐",
+  },
+  {
+    dniHash: "25f55638c8d8638888423f0c726706da546b1ef2368074b846f91fc0ee8affb3",
+    displayName: "Sofia",
+    alias: "Hermana de Lucia",
+    emoji: "👯",
+  },
+  {
+    dniHash: "05642d87347fbaa46c52550327cf89ad055d5783cd1e112628eefa2fe5daafef",
+    displayName: "Vicky",
+    alias: "Hermana de Luci",
+    emoji: "👯",
+  },
+  {
+    dniHash: "aff81cc60a51837cf70e650668ff3f0fee229009049b3aa332baf046a5586790",
+    displayName: "Flori",
+    alias: "Hermana de Luci",
+    emoji: "👯",
+  },
 ]
 
 function hashDni(dni: string) {

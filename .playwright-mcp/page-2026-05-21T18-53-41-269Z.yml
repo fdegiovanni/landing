@@ -1,0 +1,17 @@
+- main [ref=e3]:
+  - main [ref=e4]:
+    - region "Acceso privado Europa 2026" [ref=e5]:
+      - generic [ref=e6]:
+        - text: POR AVION
+        - text: "2026"
+      - paragraph [ref=e8]: de fede, con cariño
+      - heading "Europa 2026" [level=1] [ref=e9]:
+        - text: Europa
+        - generic [ref=e10]: "2026"
+      - paragraph [ref=e11]: 28 mayo - 3 julio · 16 ciudades
+      - paragraph [ref=e12]: Hola... quien sos?
+      - paragraph [ref=e13]: Ingresa tu DNI para entrar al diario del viaje.
+      - generic [ref=e14]:
+        - generic [ref=e15]: DNI
+        - textbox "DNI" [ref=e16]
+        - button "Entrar al viaje" [ref=e17]

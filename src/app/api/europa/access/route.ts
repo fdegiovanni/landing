@@ -73,7 +73,7 @@ const TRAVELERS: Array<Traveler & { dniHash: string }> = [
     displayName: "Abi",
     alias: "Abi",
     emoji: "😽",
-  },
+  }
   
 ]
 

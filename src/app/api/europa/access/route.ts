@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from "crypto"
+7 10import { createHash, timingSafeEqual } from "crypto"
 import { NextResponse } from "next/server"
 
 type Traveler = {
@@ -62,6 +62,12 @@ const TRAVELERS: Array<Traveler & { dniHash: string }> = [
     alias: "Hermana de Luci",
     emoji: "👯",
   },
+  {
+    dniHash: "1848c93fe7f16ebfb30ae2125d37e651fb88fdd72305ff0f0e0f248bcdbf324e",
+    displayName: "Caro",
+    alias: "Carito",
+    emoji: "🤩",
+  }
 ]
 
 function hashDni(dni: string) {

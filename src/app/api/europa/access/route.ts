@@ -50,6 +50,18 @@ const TRAVELERS: Array<Traveler & { dniHash: string }> = [
     alias: "Hermana de Lucia",
     emoji: "👯",
   },
+  {
+    dniHash: "05642d87347fbaa46c52550327cf89ad055d5783cd1e112628eefa2fe5daafef",
+    displayName: "Vicky",
+    alias: "Hermana de Luci",
+    emoji: "👯",
+  },
+  {
+    dniHash: "aff81cc60a51837cf70e650668ff3f0fee229009049b3aa332baf046a5586790",
+    displayName: "Flori",
+    alias: "Hermana de Luci",
+    emoji: "👯",
+  },
 ]
 
 function hashDni(dni: string) {

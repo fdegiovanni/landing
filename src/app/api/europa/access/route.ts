@@ -1,4 +1,4 @@
-7 10import { createHash, timingSafeEqual } from "crypto"
+import { createHash, timingSafeEqual } from "crypto"
 import { NextResponse } from "next/server"
 
 type Traveler = {

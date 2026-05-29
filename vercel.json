@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/europa/sync-photos",
-      "schedule": "0 23 * * *"
+      "schedule": "0 */2 * * *"
     }
   ]
 }
